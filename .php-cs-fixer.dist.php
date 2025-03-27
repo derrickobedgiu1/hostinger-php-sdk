@@ -49,5 +49,10 @@ return (new PhpCsFixer\Config())
         'object_operator_without_whitespace' => true,
         'ternary_operator_spaces' => true,
         'trim_array_spaces' => true,
+        'phpdoc_align' => [
+            'align' => 'vertical',
+            'tags' => ['param', 'property', 'property-read', 'property-write', 'return', 'throws', 'type', 'var', 'method'],
+        ],
+        'phpdoc_separation' => true,
     ])
     ->setFinder($finder);
