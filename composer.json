@@ -1,0 +1,61 @@
+{
+    "name": "derrickob/hostinger-php-sdk",
+    "description": "A PHP SDK for interacting with the Hostinger API",
+    "type": "library",
+    "homepage": "https://github.com/derrickobedgiu1/hostinger-php-sdk",
+    "keywords": [
+        "hostinger",
+        "hostinger-php",
+        "hostinger-client",
+        "hostinger-vps",
+        "hostinger-api",
+        "hostinger-sdk",
+        "api",
+        "sdk",
+        "client"
+    ],
+    "authors": [
+        {
+            "name": "Derrick Obedgiu",
+            "email": "derrickobedgiu@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.9",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.73",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^3.7",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.0",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DerrickOb\\HostingerApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DerrickOb\\HostingerApi\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "analyze": "phpstan analyze",
+        "cs-fix": "php-cs-fixer fix --allow-risky=yes",
+        "rector": "rector process --dry-run"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable"
+}
