@@ -13,10 +13,17 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 
+/**
+ * Implementation of the HttpClientInterface using GuzzleHttp.
+ */
 final class GuzzleHttpClient implements HttpClientInterface
 {
+    /** @var GuzzleClient The GuzzleHttp client instance. */
     private GuzzleClient $client;
 
+    /**
+     * @param Config $config SDK configuration
+     */
     public function __construct(Config $config)
     {
         $this->client = new GuzzleClient([
@@ -31,8 +38,18 @@ final class GuzzleHttpClient implements HttpClientInterface
     }
 
     /**
-     * {@inheritdoc}
-     * @throws AuthenticationException|ValidationException|RateLimitException|ApiException
+     * Send a request to the API.
+     *
+     * @param string               $method  HTTP method (GET, POST, PUT, DELETE)
+     * @param string               $uri     URI path
+     * @param array<string, mixed> $options Request options
+     *
+     * @return array<string, mixed> Response data
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
      */
     public function request(string $method, string $uri, array $options = []): array
     {

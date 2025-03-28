@@ -4,28 +4,29 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi;
 
+/**
+ * Configuration for the Hostinger API client.
+ */
 final class Config
 {
-    /**
-     * Base URL for the API
-     */
+    /** @var string Base URL for the API. */
     private string $baseUrl;
 
-    /**
-     * Request timeout in seconds
-     */
+    /** @var int Request timeout in seconds. */
     private int $timeout;
 
-    /**
-     * API version
-     */
+    /** @var string API version. */
     private string $apiVersion;
 
     /**
      * @param string $apiToken API token for authentication
-     * @param array  $options  Configuration options
+     * @param array{
+     *      base_url?: string,
+     *      timeout?: int,
+     *      api_version?: string
+     *  }  $options  Configuration options
      */
-    public function __construct(private string $apiToken, array $options = [])
+    public function __construct(private readonly string $apiToken, array $options = [])
     {
         $this->baseUrl = $options['base_url'] ?? 'https://developers.hostinger.com';
         $this->timeout = $options['timeout'] ?? 30;
@@ -33,7 +34,9 @@ final class Config
     }
 
     /**
-     * Get the API token
+     * Get the API token.
+     *
+     * @return string The API token
      */
     public function getApiToken(): string
     {
@@ -41,7 +44,9 @@ final class Config
     }
 
     /**
-     * Get the base URL
+     * Get the base URL.
+     *
+     * @return string The base URL
      */
     public function getBaseUrl(): string
     {
@@ -49,7 +54,9 @@ final class Config
     }
 
     /**
-     * Get the timeout
+     * Get the timeout.
+     *
+     * @return int The timeout in seconds
      */
     public function getTimeout(): int
     {
@@ -57,7 +64,9 @@ final class Config
     }
 
     /**
-     * Get the API version
+     * Get the API version.
+     *
+     * @return string The API version
      */
     public function getApiVersion(): string
     {
