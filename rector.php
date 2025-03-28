@@ -14,7 +14,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // Define PHP version
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     // Register sets of rules
     $rectorConfig->sets([
@@ -22,7 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
-        LevelSetList::UP_TO_PHP_80,
+        LevelSetList::UP_TO_PHP_81,
     ]);
 
     $rectorConfig->disableParallel();
