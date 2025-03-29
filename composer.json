@@ -47,10 +47,18 @@
         }
     },
     "scripts": {
-        "test": "pest",
+        "test:unit": "pest",
         "analyze": "phpstan analyze",
-        "cs-fix": "php-cs-fixer fix --allow-risky=yes",
-        "rector": "rector process --dry-run"
+        "cs": "php-cs-fixer fix --allow-risky=yes --dry-run --diff",
+        "rector": "rector process --dry-run",
+        "cs:fix": "php-cs-fixer fix --allow-risky=yes",
+        "rector:fix": "rector process",
+        "tests": [
+            "@cs",
+            "@test:unit",
+            "@rector",
+            "@analyze"
+        ]
     },
     "config": {
         "sort-packages": true,
