@@ -19,7 +19,7 @@ use GuzzleHttp\Exception\GuzzleException;
 final class GuzzleHttpClient implements HttpClientInterface
 {
     /** @var GuzzleClient The GuzzleHttp client instance. */
-    private GuzzleClient $client;
+    private readonly GuzzleClient $client;
 
     /**
      * @param Config $config SDK configuration

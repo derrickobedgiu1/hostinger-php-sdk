@@ -10,13 +10,13 @@ namespace DerrickOb\HostingerApi;
 final class Config
 {
     /** @var string Base URL for the API. */
-    private string $baseUrl;
+    private readonly string $baseUrl;
 
     /** @var int Request timeout in seconds. */
-    private int $timeout;
+    private readonly int $timeout;
 
     /** @var string API version. */
-    private string $apiVersion;
+    private readonly string $apiVersion;
 
     /**
      * @param string $apiToken API token for authentication

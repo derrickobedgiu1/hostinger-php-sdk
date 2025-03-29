@@ -17,7 +17,7 @@ use DerrickOb\HostingerApi\HttpClient\HttpClientInterface;
 final class Client implements ClientInterface
 {
     /** @var HttpClientInterface The HTTP client instance. */
-    private HttpClientInterface $httpClient;
+    private readonly HttpClientInterface $httpClient;
 
     /**
      * Create a new client instance.
