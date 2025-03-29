@@ -57,10 +57,12 @@ final class GuzzleHttpClient implements HttpClientInterface
             $response = $this->client->request($method, $uri, $options);
             $contents = $response->getBody()->getContents();
 
+            /** @var array<string, mixed> */
             return json_decode($contents, true) ?? [];
         } catch (ClientException $e) {
             $response = $e->getResponse();
             $statusCode = $response->getStatusCode();
+            /** @var array<string, mixed> $responseData */
             $responseData = json_decode($response->getBody()->getContents(), true) ?? [];
             $message = $responseData['message'] ?? 'An error occurred';
             $correlationId = $responseData['correlation_id'] ?? null;
