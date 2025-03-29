@@ -36,6 +36,8 @@ final class PaymentMethod extends AbstractResource
      *
      * @param int $paymentMethodId ID of the payment method to set as default
      *
+     * @link https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId}
+     *
      * @return array{message: string} Success response
      *
      */
@@ -51,6 +53,8 @@ final class PaymentMethod extends AbstractResource
      * Delete payment method.
      *
      * @param int $paymentMethodId ID of the payment method to delete
+     *
+     * @link https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId}
      *
      * @return array{message: string} Success response
      *
