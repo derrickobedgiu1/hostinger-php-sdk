@@ -19,18 +19,18 @@ final class Backup extends AbstractResource
     /**
      * Get backup list for a virtual machine.
      *
-     * @param int           $vmId  Virtual machine ID
-     * @param array<string> $query Optional query parameters (like page)
+     * @param int           $virtualMachineId Virtual machine ID
+     * @param array<string> $query            Optional query parameters (like page)
      *
      * @link https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups
      *
      * @return PaginatedResponse The backups list
      *
      */
-    public function list(int $vmId, array $query = []): PaginatedResponse
+    public function list(int $virtualMachineId, array $query = []): PaginatedResponse
     {
         $version = $this->getApiVersion();
-        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/backups', $version, $vmId), $query);
+        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/backups', $version, $virtualMachineId), $query);
 
         /** @var PaginatedResponse */
         return $this->transformResponse(BackupData::class, $response);
@@ -39,37 +39,37 @@ final class Backup extends AbstractResource
     /**
      * Delete backup.
      *
-     * @param int $vmId     Virtual machine ID
-     * @param int $backupId Backup ID
+     * @param int $virtualMachineId Virtual machine ID
+     * @param int $backupId         Backup ID
      *
      * @link https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}
      *
      * @return array{message: string} Success response
      *
      */
-    public function delete(int $vmId, int $backupId): array
+    public function delete(int $virtualMachineId, int $backupId): array
     {
         $version = $this->getApiVersion();
 
         /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d', $version, $vmId, $backupId));
+        return $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d', $version, $virtualMachineId, $backupId));
     }
 
     /**
      * Restore backup.
      *
-     * @param int $vmId     Virtual machine ID
-     * @param int $backupId Backup ID
+     * @param int $virtualMachineId Virtual machine ID
+     * @param int $backupId         Backup ID
      *
      * @link https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore
      *
      * @return ActionData The initiated restore action
      *
      */
-    public function restore(int $vmId, int $backupId): ActionData
+    public function restore(int $virtualMachineId, int $backupId): ActionData
     {
         $version = $this->getApiVersion();
-        $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d/restore', $version, $vmId, $backupId));
+        $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d/restore', $version, $virtualMachineId, $backupId));
 
         /** @var ActionData */
         return $this->transformResponse(ActionData::class, $response);

@@ -18,18 +18,18 @@ final class Action extends AbstractResource
     /**
      * Get action list for a virtual machine.
      *
-     * @param int           $vmId  Virtual machine ID
-     * @param array<string> $query Optional query parameters (like page)
+     * @param int           $virtualMachineId Virtual machine ID
+     * @param array<string> $query            Optional query parameters (like page)
      *
      * @link https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions
      *
      * @return PaginatedResponse The actions list
      *
      */
-    public function list(int $vmId, array $query = []): PaginatedResponse
+    public function list(int $virtualMachineId, array $query = []): PaginatedResponse
     {
         $version = $this->getApiVersion();
-        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions', $version, $vmId), $query);
+        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions', $version, $virtualMachineId), $query);
 
         /** @var PaginatedResponse */
         return $this->transformResponse(ActionData::class, $response);
@@ -38,18 +38,18 @@ final class Action extends AbstractResource
     /**
      * Get action details.
      *
-     * @param int $vmId     Virtual machine ID
-     * @param int $actionId Action ID
+     * @param int $virtualMachineId Virtual machine ID
+     * @param int $actionId         Action ID
      *
      * @link https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions/{actionId}
      *
      * @return ActionData The action details
      *
      */
-    public function get(int $vmId, int $actionId): ActionData
+    public function get(int $virtualMachineId, int $actionId): ActionData
     {
         $version = $this->getApiVersion();
-        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions/%d', $version, $vmId, $actionId));
+        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions/%d', $version, $virtualMachineId, $actionId));
 
         /** @var ActionData */
         return $this->transformResponse(ActionData::class, $response);

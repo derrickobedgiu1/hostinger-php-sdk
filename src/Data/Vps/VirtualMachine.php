@@ -48,10 +48,10 @@ final class VirtualMachine extends Data
     /** @var string|null Secondary nameserver IP address. */
     public ?string $ns2;
 
-    /** @var array<int, IpAddress>|null IPv4 addresses assigned to this virtual machine. */
+    /** @var array<IpAddress>|null IPv4 addresses assigned to this virtual machine. */
     public ?array $ipv4;
 
-    /** @var array<int, IpAddress>|null IPv6 addresses assigned to this virtual machine. */
+    /** @var array<IpAddress>|null IPv6 addresses assigned to this virtual machine. */
     public ?array $ipv6;
 
     /** @var OsTemplate|null OS template installed on this virtual machine. */
@@ -73,12 +73,12 @@ final class VirtualMachine extends Data
      *      bandwidth: int,
      *      ns1?: string|null,
      *      ns2?: string|null,
-     *      ipv4?: array<int, array{
+     *      ipv4?: array<array{
      *          id: int,
      *          address: string,
      *          ptr?: string|null
      *      }>|null,
-     *      ipv6?: array<int, array{
+     *      ipv6?: array<array{
      *          id: int,
      *          address: string,
      *          ptr?: string|null
@@ -107,14 +107,14 @@ final class VirtualMachine extends Data
         $this->bandwidth = $data['bandwidth'];
         $this->ns1 = $data['ns1'] ?? null;
         $this->ns2 = $data['ns2'] ?? null;
+        $this->ipv4 = null;
+        $this->ipv6 = null;
 
         if (isset($data['ipv4'])) {
             $this->ipv4 = array_map(
                 fn (array $ipData): IpAddress => new IpAddress($ipData),
                 $data['ipv4']
             );
-        } else {
-            $this->ipv4 = null;
         }
 
         if (isset($data['ipv6'])) {
@@ -122,8 +122,6 @@ final class VirtualMachine extends Data
                 fn (array $ipData): IpAddress => new IpAddress($ipData),
                 $data['ipv6']
             );
-        } else {
-            $this->ipv6 = null;
         }
 
         $this->template = isset($data['template']) ? new OsTemplate($data['template']) : null;
