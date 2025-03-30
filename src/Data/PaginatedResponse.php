@@ -53,7 +53,6 @@ final class PaginatedResponse implements \JsonSerializable
      */
     public function getData(): array
     {
-        /** @var array<int, Data> */
         return $this->data;
     }
 

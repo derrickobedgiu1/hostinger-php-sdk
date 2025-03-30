@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
 use Rector\Set\ValueObject\LevelSetList;
@@ -11,6 +12,12 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
+    ]);
+
+    $rectorConfig->skip([
+        RemoveNonExistingVarAnnotationRector::class => [
+            __DIR__ . '/src/HttpClient/GuzzleHttpClient.php',
+        ],
     ]);
 
     // Define PHP version

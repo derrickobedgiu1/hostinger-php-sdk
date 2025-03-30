@@ -49,10 +49,10 @@ final class VirtualMachine extends Data
     public ?string $ns2;
 
     /** @var array<IpAddress>|null IPv4 addresses assigned to this virtual machine. */
-    public ?array $ipv4;
+    public ?array $ipv4 = null;
 
     /** @var array<IpAddress>|null IPv6 addresses assigned to this virtual machine. */
-    public ?array $ipv6;
+    public ?array $ipv6 = null;
 
     /** @var OsTemplate|null OS template installed on this virtual machine. */
     public ?OsTemplate $template;
@@ -107,8 +107,6 @@ final class VirtualMachine extends Data
         $this->bandwidth = $data['bandwidth'];
         $this->ns1 = $data['ns1'] ?? null;
         $this->ns2 = $data['ns2'] ?? null;
-        $this->ipv4 = null;
-        $this->ipv6 = null;
 
         if (isset($data['ipv4'])) {
             $this->ipv4 = array_map(

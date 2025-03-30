@@ -13,7 +13,6 @@ function createMockClient(): ClientInterface
     $client->shouldReceive('getApiVersion')
         ->andReturn('v1');
 
-    /** @var ClientInterface */
     return $client;
 }
 
@@ -25,6 +24,5 @@ function faker(): Generator
         $faker = Factory::create();
     }
 
-    /** @var Generator */
     return $faker;
 }

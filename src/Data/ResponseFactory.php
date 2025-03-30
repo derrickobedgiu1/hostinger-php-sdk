@@ -36,7 +36,7 @@ final class ResponseFactory
      */
     public static function createCollection(string $class, array $data): array
     {
-        if (empty($data)) {
+        if ($data === []) {
             return [];
         }
 
@@ -81,7 +81,7 @@ final class ResponseFactory
      */
     public static function createResponse(string $class, array $response): mixed
     {
-        if (empty($response)) {
+        if ($response === []) {
             return [];
         }
 
