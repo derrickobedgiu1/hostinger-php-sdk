@@ -7,6 +7,7 @@ use DerrickOb\HostingerApi\Resources\Vps\VirtualMachine;
 use Faker\Generator;
 
 test('can get virtual machine metrics', function (): void {
+    /** @var Generator $faker */
     $faker = faker();
     $virtualMachineId = $faker->randomNumber(7);
 
