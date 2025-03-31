@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\CatalogItem;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -19,10 +22,13 @@ final class Catalog extends AbstractResource
      *
      * Retrieves a list of all available catalog items with their pricing options.
      *
-     * @link https://developers.hostinger.com/#tag/billing-catalog/GET/api/billing/v1/catalog
-     *
      * @return array<CatalogItem> List of catalog items
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/billing-catalog/GET/api/billing/v1/catalog
      */
     public function list(): array
     {

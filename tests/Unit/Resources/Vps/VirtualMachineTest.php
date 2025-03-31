@@ -125,7 +125,24 @@ test('can set hostname', function (): void {
         ->andReturn($action);
 
     $resource = new VirtualMachine($client);
-    $response = $resource->setHostname($virtualMachineId, $hostname);
+    $response = $resource->setHostName($virtualMachineId, $hostname);
+
+    expect($response)->toBeInstanceOf(Action::class)
+        ->and($response->id)->toBe($action['id']);
+});
+
+test('can reset hostname', function (): void {
+    $virtualMachineId = faker()->randomNumber(5);
+    $action = TestFactory::action(['name' => 'reset_hostname']);
+
+    $client = createMockClient();
+    $client->shouldReceive('delete')
+        ->with(sprintf('/api/vps/v1/virtual-machines/%d/hostname', $virtualMachineId))
+        ->once()
+        ->andReturn($action);
+
+    $resource = new VirtualMachine($client);
+    $response = $resource->resetHostName($virtualMachineId);
 
     expect($response)->toBeInstanceOf(Action::class)
         ->and($response->id)->toBe($action['id']);

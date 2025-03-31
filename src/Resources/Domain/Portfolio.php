@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Domain;
 
 use DerrickOb\HostingerApi\Data\Domain\Domain;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -17,10 +20,13 @@ final class Portfolio extends AbstractResource
     /**
      * Get domain list.
      *
-     * @link https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio
-     *
      * @return array<Domain> List of domains in the portfolio
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio
      */
     public function list(): array
     {

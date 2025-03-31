@@ -7,6 +7,10 @@ namespace DerrickOb\HostingerApi\Resources\Vps;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
+use DerrickOb\HostingerApi\Exceptions\ValidationException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -23,6 +27,10 @@ final class VirtualMachine extends AbstractResource
      *
      * @return array<VirtualMachineData> List of virtual machines
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
      */
     public function list(): array
     {
@@ -38,9 +46,13 @@ final class VirtualMachine extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}
-     *
      * @return VirtualMachineData The virtual machine details
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}
      *
      */
     public function get(int $virtualMachineId): VirtualMachineData
@@ -71,9 +83,14 @@ final class VirtualMachine extends AbstractResource
      *     }
      * } $data Setup data for the virtual machine
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/setup
-     *
      * @return VirtualMachineData The setup virtual machine
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/setup
      *
      */
     public function setup(int $virtualMachineId, array $data): VirtualMachineData
@@ -90,9 +107,13 @@ final class VirtualMachine extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/start
-     *
      * @return Action The initiated start action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/start
      *
      */
     public function start(int $virtualMachineId): Action
@@ -109,9 +130,13 @@ final class VirtualMachine extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/stop
-     *
      * @return Action The initiated stop action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/stop
      *
      */
     public function stop(int $virtualMachineId): Action
@@ -128,9 +153,13 @@ final class VirtualMachine extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/restart
-     *
      * @return Action The initiated restart action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/restart
      *
      */
     public function restart(int $virtualMachineId): Action
@@ -151,9 +180,14 @@ final class VirtualMachine extends AbstractResource
      *     template_id: int
      * } $data Reinstall data with new password and template
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/reinstall
-     *
      * @return Action The initiated reinstall action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/reinstall
      *
      */
     public function reinstall(int $virtualMachineId, array $data): Action
@@ -171,12 +205,16 @@ final class VirtualMachine extends AbstractResource
      * @param int    $virtualMachineId Virtual machine ID
      * @param string $hostname         New hostname
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/hostname
-     *
      * @return Action The initiated hostname change action
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/hostname
+     *
      */
-    public function setHostname(int $virtualMachineId, string $hostname): Action
+    public function setHostName(int $virtualMachineId, string $hostname): Action
     {
         $version = $this->getApiVersion();
         $response = $this->client->put(sprintf('/api/vps/%s/virtual-machines/%d/hostname', $version, $virtualMachineId), [
@@ -192,12 +230,16 @@ final class VirtualMachine extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/hostname
-     *
      * @return Action The initiated hostname reset action
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/hostname
+     *
      */
-    public function resetHostname(int $virtualMachineId): Action
+    public function resetHostName(int $virtualMachineId): Action
     {
         $version = $this->getApiVersion();
         $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/hostname', $version, $virtualMachineId));
@@ -212,9 +254,14 @@ final class VirtualMachine extends AbstractResource
      * @param int    $virtualMachineId Virtual machine ID
      * @param string $password         New root password
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/root-password
-     *
      * @return Action The initiated password change action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/root-password
      *
      */
     public function setRootPassword(int $virtualMachineId, string $password): Action
@@ -234,9 +281,14 @@ final class VirtualMachine extends AbstractResource
      * @param int    $virtualMachineId Virtual machine ID
      * @param string $password         New panel password
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/panel-password
-     *
      * @return Action The initiated password change action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/panel-password
      *
      */
     public function setPanelPassword(int $virtualMachineId, string $password): Action
@@ -259,12 +311,17 @@ final class VirtualMachine extends AbstractResource
      *     ns2?: string
      * } $data Nameserver data
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/nameservers
-     *
      * @return Action The initiated nameserver change action
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/nameservers
+     *
      */
-    public function setNameservers(int $virtualMachineId, array $data): Action
+    public function setNameServers(int $virtualMachineId, array $data): Action
     {
         $version = $this->getApiVersion();
         $response = $this->client->put(sprintf('/api/vps/%s/virtual-machines/%d/nameservers', $version, $virtualMachineId), $data);
@@ -282,9 +339,14 @@ final class VirtualMachine extends AbstractResource
      *     date_to: string
      * } $data Metrics request data with date range
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics
-     *
      * @return Metrics The virtual machine metrics
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics
      *
      */
     public function getMetrics(int $virtualMachineId, array $data): Metrics

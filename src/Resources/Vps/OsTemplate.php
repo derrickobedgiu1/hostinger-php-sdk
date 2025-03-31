@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\OsTemplate as OsTemplateData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -17,10 +20,13 @@ final class OsTemplate extends AbstractResource
     /**
      * Get OS template list.
      *
-     * @link https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates
-     *
      * @return array<OsTemplateData> List of available OS templates
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates
      */
     public function list(): array
     {
@@ -36,9 +42,13 @@ final class OsTemplate extends AbstractResource
      *
      * @param int $templateId Template ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates/{templateId}
-     *
      * @return OsTemplateData The OS template details
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates/{templateId}
      *
      */
     public function get(int $templateId): OsTemplateData

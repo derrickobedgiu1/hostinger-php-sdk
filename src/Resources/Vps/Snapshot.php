@@ -6,6 +6,9 @@ namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Snapshot as SnapshotData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -20,9 +23,13 @@ final class Snapshot extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-snapshots/GET/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
-     *
      * @return SnapshotData The snapshot details
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-snapshots/GET/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
      *
      */
     public function get(int $virtualMachineId): SnapshotData
@@ -39,9 +46,13 @@ final class Snapshot extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
-     *
      * @return Action The initiated snapshot creation action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
      *
      */
     public function create(int $virtualMachineId): Action
@@ -58,9 +69,13 @@ final class Snapshot extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-snapshots/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
-     *
      * @return Action The initiated snapshot deletion action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-snapshots/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot
      *
      */
     public function delete(int $virtualMachineId): Action
@@ -77,9 +92,13 @@ final class Snapshot extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot/restore
-     *
      * @return Action The initiated snapshot restoration action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot/restore
      *
      */
     public function restore(int $virtualMachineId): Action

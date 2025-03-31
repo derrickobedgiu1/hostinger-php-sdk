@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\DataCenter as DataCenterData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -17,10 +20,13 @@ final class DataCenter extends AbstractResource
     /**
      * Get data centers list.
      *
-     * @link https://developers.hostinger.com/#tag/vps-data-centers/GET/api/vps/v1/data-centers
-     *
      * @return array<DataCenterData> List of data centers
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-data-centers/GET/api/vps/v1/data-centers
      */
     public function list(): array
     {

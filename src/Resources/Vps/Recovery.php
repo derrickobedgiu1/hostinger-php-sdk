@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\Action;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
+use DerrickOb\HostingerApi\Exceptions\ValidationException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -22,9 +26,14 @@ final class Recovery extends AbstractResource
      *     root_password: string
      * } $data Recovery mode data with root password
      *
-     * @link https://developers.hostinger.com/#tag/vps-recovery/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recovery
-     *
      * @return Action The initiated recovery start action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-recovery/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recovery
      *
      */
     public function start(int $virtualMachineId, array $data): Action
@@ -41,9 +50,13 @@ final class Recovery extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-recovery/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/recovery
-     *
      * @return Action The initiated recovery stop action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-recovery/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/recovery
      *
      */
     public function stop(int $virtualMachineId): Action

@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\Action;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -19,9 +22,13 @@ final class PtrRecord extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-ptr-records/POST/api/vps/v1/virtual-machines/{virtualMachineId}/ptr
-     *
      * @return Action The initiated creation action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-ptr-records/POST/api/vps/v1/virtual-machines/{virtualMachineId}/ptr
      *
      */
     public function create(int $virtualMachineId): Action
@@ -38,9 +45,13 @@ final class PtrRecord extends AbstractResource
      *
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-ptr-records/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/ptr
-     *
      * @return Action The initiated deletion action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-ptr-records/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/ptr
      *
      */
     public function delete(int $virtualMachineId): Action

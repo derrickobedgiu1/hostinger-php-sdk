@@ -7,6 +7,10 @@ namespace DerrickOb\HostingerApi\Resources\Vps;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey as PublicKeyData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
+use DerrickOb\HostingerApi\Exceptions\ValidationException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -21,9 +25,13 @@ final class PublicKey extends AbstractResource
      *
      * @param array<string, mixed> $query Optional query parameters (like page)
      *
-     * @link https://developers.hostinger.com/#tag/vps-public-keys/GET/api/vps/v1/public-keys
-     *
      * @return PaginatedResponse The public keys list
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-public-keys/GET/api/vps/v1/public-keys
      *
      */
     public function list(array $query = []): PaginatedResponse
@@ -43,9 +51,14 @@ final class PublicKey extends AbstractResource
      *     key: string
      * } $data Public key creation data
      *
-     * @link https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys
-     *
      * @return PublicKeyData The created public key
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys
      *
      */
     public function create(array $data): PublicKeyData
@@ -62,9 +75,13 @@ final class PublicKey extends AbstractResource
      *
      * @param int $publicKeyId Public key ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId}
-     *
      * @return array{message: string} Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId}
      *
      */
     public function delete(int $publicKeyId): array
@@ -83,9 +100,14 @@ final class PublicKey extends AbstractResource
      *     ids: array<int>
      * } $ids Public key IDs to attach
      *
-     * @link https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys/attach/{virtualMachineId}
-     *
      * @return Action The initiated attachment action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys/attach/{virtualMachineId}
      *
      */
     public function attach(int $virtualMachineId, array $ids): Action

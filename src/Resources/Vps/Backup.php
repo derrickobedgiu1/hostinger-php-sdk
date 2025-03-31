@@ -7,6 +7,9 @@ namespace DerrickOb\HostingerApi\Resources\Vps;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\Backup as BackupData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -22,9 +25,13 @@ final class Backup extends AbstractResource
      * @param int           $virtualMachineId Virtual machine ID
      * @param array<string> $query            Optional query parameters (like page)
      *
-     * @link https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups
-     *
      * @return PaginatedResponse The backups list
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups
      *
      */
     public function list(int $virtualMachineId, array $query = []): PaginatedResponse
@@ -42,9 +49,13 @@ final class Backup extends AbstractResource
      * @param int $virtualMachineId Virtual machine ID
      * @param int $backupId         Backup ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}
-     *
      * @return array{message: string} Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}
      *
      */
     public function delete(int $virtualMachineId, int $backupId): array
@@ -61,9 +72,13 @@ final class Backup extends AbstractResource
      * @param int $virtualMachineId Virtual machine ID
      * @param int $backupId         Backup ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore
-     *
      * @return ActionData The initiated restore action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore
      *
      */
     public function restore(int $virtualMachineId, int $backupId): ActionData

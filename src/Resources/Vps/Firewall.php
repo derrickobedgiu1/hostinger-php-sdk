@@ -8,6 +8,10 @@ use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Firewall as FirewallData;
 use DerrickOb\HostingerApi\Data\Vps\FirewallRule;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
+use DerrickOb\HostingerApi\Exceptions\ValidationException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -22,9 +26,13 @@ final class Firewall extends AbstractResource
      *
      * @param array<string> $query Optional query parameters (like page)
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall
-     *
      * @return PaginatedResponse The firewalls list
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall
      *
      */
     public function list(array $query = []): PaginatedResponse
@@ -41,9 +49,13 @@ final class Firewall extends AbstractResource
      *
      * @param int $firewallId Firewall ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall/{firewallId}
-     *
      * @return FirewallData The firewall details
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall/{firewallId}
      *
      */
     public function get(int $firewallId): FirewallData
@@ -62,9 +74,14 @@ final class Firewall extends AbstractResource
      *     name: string
      * } $data Firewall creation data
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall
-     *
      * @return FirewallData The created firewall
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall
      *
      */
     public function create(array $data): FirewallData
@@ -81,9 +98,13 @@ final class Firewall extends AbstractResource
      *
      * @param int $firewallId Firewall ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}
-     *
      * @return array{message: string} Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}
      *
      */
     public function delete(int $firewallId): array
@@ -107,6 +128,13 @@ final class Firewall extends AbstractResource
      *
      * @return FirewallRule The created rule
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/rules
+     *
      */
     public function createRule(int $firewallId, array $data): FirewallRule
     {
@@ -123,15 +151,20 @@ final class Firewall extends AbstractResource
      * @param int $firewallId     Firewall ID
      * @param int $firewallRuleId Rule ID
      * @param array{
-     *     protocol?: string,
-     *     port?: string,
-     *     source?: string,
-     *     source_detail?: string
+     *     protocol: string,
+     *     port: string,
+     *     source: string,
+     *     source_detail: string
      * } $data Rule update data
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
-     *
      * @return FirewallRule The updated rule
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
      *
      */
     public function updateRule(int $firewallId, int $firewallRuleId, array $data): FirewallRule
@@ -151,6 +184,13 @@ final class Firewall extends AbstractResource
      *
      * @return array{message: string} Success response
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
+     *
      */
     public function deleteRule(int $firewallId, int $firewallRuleId): array
     {
@@ -166,9 +206,14 @@ final class Firewall extends AbstractResource
      * @param int $firewallId       Firewall ID
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/activate/{virtualMachineId}
-     *
      * @return Action The initiated activation action
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/activate/{virtualMachineId}
      *
      */
     public function activate(int $firewallId, int $virtualMachineId): Action
@@ -186,9 +231,14 @@ final class Firewall extends AbstractResource
      * @param int $firewallId       Firewall ID
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/deactivate/{virtualMachineId}
-     *
      * @return Action Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/deactivate/{virtualMachineId}
      *
      */
     public function deactivate(int $firewallId, int $virtualMachineId): Action
@@ -208,6 +258,12 @@ final class Firewall extends AbstractResource
      *
      * @return array{message: string} Success response
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId}
      */
     public function sync(int $firewallId, int $virtualMachineId): array
     {

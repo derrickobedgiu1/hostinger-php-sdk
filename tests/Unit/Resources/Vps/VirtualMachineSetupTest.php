@@ -87,7 +87,7 @@ test('can set nameservers for virtual machine', function (): void {
         ->andReturn($action);
 
     $resource = new VirtualMachine($client);
-    $response = $resource->setNameservers($virtualMachineId, $data);
+    $response = $resource->setNameServers($virtualMachineId, $data);
 
     expect($response)->toBeInstanceOf(ActionData::class)
         ->and($response->name)->toBe('set_nameservers');

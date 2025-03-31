@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;
+use DerrickOb\HostingerApi\Exceptions\ApiException;
+use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
+use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Resources\AbstractResource;
 
 /**
@@ -17,10 +20,13 @@ final class PaymentMethod extends AbstractResource
     /**
      * Get payment method list.
      *
-     * @link https://developers.hostinger.com/#tag/billing-payment-methods/GET/api/billing/v1/payment-methods
-     *
      * @return array<PaymentMethodData> The payment methods
      *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/billing-payment-methods/GET/api/billing/v1/payment-methods
      */
     public function list(): array
     {
@@ -36,9 +42,13 @@ final class PaymentMethod extends AbstractResource
      *
      * @param int $paymentMethodId ID of the payment method to set as default
      *
-     * @link https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId}
-     *
      * @return array{message: string} Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId}
      *
      */
     public function setDefault(int $paymentMethodId): array
@@ -54,9 +64,13 @@ final class PaymentMethod extends AbstractResource
      *
      * @param int $paymentMethodId ID of the payment method to delete
      *
-     * @link https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId}
-     *
      * @return array{message: string} Success response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId}
      *
      */
     public function delete(int $paymentMethodId): array
