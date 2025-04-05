@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS PTR Records API.
  *
  * @link https://developers.hostinger.com/#tag/vps-ptr-records
  */
-final class PtrRecord extends AbstractResource
+final class PtrRecord extends Resource
 {
     /**
      * Create PTR record for a virtual machine.

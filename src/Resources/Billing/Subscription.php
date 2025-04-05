@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Billing\Subscription as SubscriptionData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the Subscriptions API.
  *
  * @link https://developers.hostinger.com/#tag/billing-subscriptions
  */
-final class Subscription extends AbstractResource
+final class Subscription extends Resource
 {
     /**
      * Get subscription list.

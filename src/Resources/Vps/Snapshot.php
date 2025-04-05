@@ -9,14 +9,14 @@ use DerrickOb\HostingerApi\Data\Vps\Snapshot as SnapshotData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Snapshots API.
  *
  * @link https://developers.hostinger.com/#tag/vps-snapshots
  */
-final class Snapshot extends AbstractResource
+final class Snapshot extends Resource
 {
     /**
      * Get snapshot details for a virtual machine.

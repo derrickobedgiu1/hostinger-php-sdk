@@ -11,14 +11,14 @@ use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Exceptions\ValidationException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Public Keys API.
  *
  * @link https://developers.hostinger.com/#tag/vps-public-keys
  */
-final class PublicKey extends AbstractResource
+final class PublicKey extends Resource
 {
     /**
      * Get public key list.

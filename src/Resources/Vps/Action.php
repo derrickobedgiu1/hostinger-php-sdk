@@ -9,14 +9,14 @@ use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Actions API.
  *
  * @link https://developers.hostinger.com/#tag/vps-actions
  */
-final class Action extends AbstractResource
+final class Action extends Resource
 {
     /**
      * Get action list for a virtual machine.

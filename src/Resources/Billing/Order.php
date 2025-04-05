@@ -9,14 +9,14 @@ use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Exceptions\ValidationException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the Orders API.
  *
  * @link https://developers.hostinger.com/#tag/billing-orders
  */
-final class Order extends AbstractResource
+final class Order extends Resource
 {
     /**
      * Create new service order.

@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Billing\CatalogItem;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the Catalog API.
  *
  * @link https://developers.hostinger.com/#tag/billing-catalog
  */
-final class Catalog extends AbstractResource
+final class Catalog extends Resource
 {
     /**
      * Get catalog item list.

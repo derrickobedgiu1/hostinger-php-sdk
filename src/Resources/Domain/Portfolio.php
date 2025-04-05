@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Domain\Domain;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the Domains Portfolio API.
  *
  * @link https://developers.hostinger.com/#tag/domains-portfolio
  */
-final class Portfolio extends AbstractResource
+final class Portfolio extends Resource
 {
     /**
      * Get domain list.

@@ -125,9 +125,9 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Example;
 
 use DerrickOb\HostingerApi\Data\Example\Example as ExampleData;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
-final class Example extends AbstractResource
+final class Example extends Resource
 {
     /**
      * List all examples

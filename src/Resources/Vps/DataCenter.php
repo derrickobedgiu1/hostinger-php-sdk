@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Vps\DataCenter as DataCenterData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Data Centers API.
  *
  * @link https://developers.hostinger.com/#tag/vps-data-centers
  */
-final class DataCenter extends AbstractResource
+final class DataCenter extends Resource
 {
     /**
      * Get data centers list.

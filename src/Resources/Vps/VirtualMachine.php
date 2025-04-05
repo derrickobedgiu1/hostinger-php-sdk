@@ -11,14 +11,14 @@ use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
 use DerrickOb\HostingerApi\Exceptions\ValidationException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Virtual Machines API.
  *
  * @link https://developers.hostinger.com/#tag/vps-virtual-machine
  */
-final class VirtualMachine extends AbstractResource
+final class VirtualMachine extends Resource
 {
     /**
      * Get virtual machine list.

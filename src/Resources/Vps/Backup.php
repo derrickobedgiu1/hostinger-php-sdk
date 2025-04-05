@@ -10,14 +10,14 @@ use DerrickOb\HostingerApi\Data\Vps\Backup as BackupData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS Backups API.
  *
  * @link https://developers.hostinger.com/#tag/vps-backups
  */
-final class Backup extends AbstractResource
+final class Backup extends Resource
 {
     /**
      * Get backup list for a virtual machine.

@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the Payment Methods API.
  *
  * @link https://developers.hostinger.com/#tag/billing-payment-methods
  */
-final class PaymentMethod extends AbstractResource
+final class PaymentMethod extends Resource
 {
     /**
      * Get payment method list.

@@ -10,7 +10,7 @@ use DerrickOb\HostingerApi\Data\ResponseFactory;
 /**
  * Base abstract class for all API resource endpoints.
  */
-abstract class AbstractResource
+abstract class Resource
 {
     /**
      * @param ClientInterface $client The API client for making requests.

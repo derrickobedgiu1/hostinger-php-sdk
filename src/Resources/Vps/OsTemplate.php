@@ -8,14 +8,14 @@ use DerrickOb\HostingerApi\Data\Vps\OsTemplate as OsTemplateData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
-use DerrickOb\HostingerApi\Resources\AbstractResource;
+use DerrickOb\HostingerApi\Resources\Resource;
 
 /**
  * Resource for interacting with the VPS OS Templates API.
  *
  * @link https://developers.hostinger.com/#tag/vps-os-templates
  */
-final class OsTemplate extends AbstractResource
+final class OsTemplate extends Resource
 {
     /**
      * Get OS template list.
