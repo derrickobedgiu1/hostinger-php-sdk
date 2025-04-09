@@ -36,6 +36,6 @@ final class Catalog extends Resource
         $response = $this->client->get(sprintf('/api/billing/%s/catalog', $version));
 
         /** @var array<CatalogItem> */
-        return $this->transformResponse(CatalogItem::class, $response);
+        return $this->transform(CatalogItem::class, $response);
     }
 }

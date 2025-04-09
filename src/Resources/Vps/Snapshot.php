@@ -38,7 +38,7 @@ final class Snapshot extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/snapshot', $version, $virtualMachineId));
 
         /** @var SnapshotData */
-        return $this->transformResponse(SnapshotData::class, $response);
+        return $this->transform(SnapshotData::class, $response);
     }
 
     /**
@@ -61,7 +61,7 @@ final class Snapshot extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/snapshot', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -84,7 +84,7 @@ final class Snapshot extends Resource
         $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/snapshot', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -107,6 +107,6 @@ final class Snapshot extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/snapshot/restore', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 }

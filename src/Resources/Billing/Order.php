@@ -46,6 +46,6 @@ final class Order extends Resource
         $response = $this->client->post(sprintf('/api/billing/%s/orders', $version), $data);
 
         /** @var OrderData */
-        return $this->transformResponse(OrderData::class, $response);
+        return $this->transform(OrderData::class, $response);
     }
 }

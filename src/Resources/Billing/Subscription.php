@@ -35,7 +35,7 @@ final class Subscription extends Resource
         $response = $this->client->get(sprintf('/api/billing/%s/subscriptions', $version));
 
         /** @var array<SubscriptionData> */
-        return $this->transformResponse(SubscriptionData::class, $response);
+        return $this->transform(SubscriptionData::class, $response);
     }
 
     /**

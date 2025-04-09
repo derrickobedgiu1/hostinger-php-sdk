@@ -40,7 +40,7 @@ final class Backup extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/backups', $version, $virtualMachineId), $query);
 
         /** @var PaginatedResponse */
-        return $this->transformResponse(BackupData::class, $response);
+        return $this->transform(BackupData::class, $response);
     }
 
     /**
@@ -87,6 +87,6 @@ final class Backup extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d/restore', $version, $virtualMachineId, $backupId));
 
         /** @var ActionData */
-        return $this->transformResponse(ActionData::class, $response);
+        return $this->transform(ActionData::class, $response);
     }
 }

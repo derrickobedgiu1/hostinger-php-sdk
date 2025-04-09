@@ -34,6 +34,6 @@ final class DataCenter extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/data-centers', $version));
 
         /** @var array<DataCenterData> */
-        return $this->transformResponse(DataCenterData::class, $response);
+        return $this->transform(DataCenterData::class, $response);
     }
 }

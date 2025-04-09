@@ -41,7 +41,7 @@ final class Firewall extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/firewall', $version), $query);
 
         /** @var PaginatedResponse */
-        return $this->transformResponse(FirewallData::class, $response);
+        return $this->transform(FirewallData::class, $response);
     }
 
     /**
@@ -64,7 +64,7 @@ final class Firewall extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/firewall/%d', $version, $firewallId));
 
         /** @var FirewallData */
-        return $this->transformResponse(FirewallData::class, $response);
+        return $this->transform(FirewallData::class, $response);
     }
 
     /**
@@ -90,7 +90,7 @@ final class Firewall extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/firewall', $version), $data);
 
         /** @var FirewallData */
-        return $this->transformResponse(FirewallData::class, $response);
+        return $this->transform(FirewallData::class, $response);
     }
 
     /**
@@ -142,7 +142,7 @@ final class Firewall extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/firewall/%d/rules', $version, $firewallId), $data);
 
         /** @var FirewallRule */
-        return $this->transformResponse(FirewallRule::class, $response);
+        return $this->transform(FirewallRule::class, $response);
     }
 
     /**
@@ -173,7 +173,7 @@ final class Firewall extends Resource
         $response = $this->client->put(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $ruleId), $data);
 
         /** @var FirewallRule */
-        return $this->transformResponse(FirewallRule::class, $response);
+        return $this->transform(FirewallRule::class, $response);
     }
 
     /**
@@ -222,7 +222,7 @@ final class Firewall extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/firewall/%d/activate/%d', $version, $firewallId, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -247,7 +247,7 @@ final class Firewall extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/firewall/%d/deactivate/%d', $version, $firewallId, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**

@@ -40,7 +40,7 @@ final class PublicKey extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/public-keys', $version), $query);
 
         /** @var PaginatedResponse */
-        return $this->transformResponse(PublicKeyData::class, $response);
+        return $this->transform(PublicKeyData::class, $response);
     }
 
     /**
@@ -67,7 +67,7 @@ final class PublicKey extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/public-keys', $version), $data);
 
         /** @var PublicKeyData */
-        return $this->transformResponse(PublicKeyData::class, $response);
+        return $this->transform(PublicKeyData::class, $response);
     }
 
     /**
@@ -116,6 +116,6 @@ final class PublicKey extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/public-keys/attach/%d', $version, $virtualMachineId), $ids);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 }

@@ -140,7 +140,7 @@ final class Example extends Resource
         $version = $this->getApiVersion();
         $response = $this->client->get(sprintf('/api/example/%s/examples', $version), $query);
 
-        return $this->transformResponse(ExampleData::class, $response);
+        return $this->transform(ExampleData::class, $response);
     }
 
     /**
@@ -154,7 +154,7 @@ final class Example extends Resource
         $version = $this->getApiVersion();
         $response = $this->client->get(sprintf('/api/example/%s/examples/%d', $version, $id));
 
-        return $this->transformResponse(ExampleData::class, $response);
+        return $this->transform(ExampleData::class, $response);
     }
 }
 ```

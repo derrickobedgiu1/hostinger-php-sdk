@@ -39,7 +39,7 @@ final class Action extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions', $version, $virtualMachineId), $query);
 
         /** @var PaginatedResponse */
-        return $this->transformResponse(ActionData::class, $response);
+        return $this->transform(ActionData::class, $response);
     }
 
     /**
@@ -63,6 +63,6 @@ final class Action extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/actions/%d', $version, $virtualMachineId, $actionId));
 
         /** @var ActionData */
-        return $this->transformResponse(ActionData::class, $response);
+        return $this->transform(ActionData::class, $response);
     }
 }

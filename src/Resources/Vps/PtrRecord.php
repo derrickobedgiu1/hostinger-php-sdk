@@ -37,7 +37,7 @@ final class PtrRecord extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/ptr', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -60,6 +60,6 @@ final class PtrRecord extends Resource
         $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/ptr', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 }

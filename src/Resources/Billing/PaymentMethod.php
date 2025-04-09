@@ -34,7 +34,7 @@ final class PaymentMethod extends Resource
         $response = $this->client->get(sprintf('/api/billing/%s/payment-methods', $version));
 
         /** @var array<PaymentMethodData> */
-        return $this->transformResponse(PaymentMethodData::class, $response);
+        return $this->transform(PaymentMethodData::class, $response);
     }
 
     /**

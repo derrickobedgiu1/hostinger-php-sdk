@@ -38,7 +38,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines', $version));
 
         /** @var array<VirtualMachineData> */
-        return $this->transformResponse(VirtualMachineData::class, $response);
+        return $this->transform(VirtualMachineData::class, $response);
     }
 
     /**
@@ -61,7 +61,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d', $version, $virtualMachineId));
 
         /** @var VirtualMachineData */
-        return $this->transformResponse(VirtualMachineData::class, $response);
+        return $this->transform(VirtualMachineData::class, $response);
     }
 
     /**
@@ -100,7 +100,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/setup', $version, $virtualMachineId), $data);
 
         /** @var VirtualMachineData */
-        return $this->transformResponse(VirtualMachineData::class, $response);
+        return $this->transform(VirtualMachineData::class, $response);
     }
 
     /**
@@ -123,7 +123,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/start', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -146,7 +146,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/stop', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -169,7 +169,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/restart', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -201,7 +201,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/recreate', $version, $virtualMachineId), $data);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -227,7 +227,7 @@ final class VirtualMachine extends Resource
         ]);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -250,7 +250,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/hostname', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -285,7 +285,7 @@ final class VirtualMachine extends Resource
         ]);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -320,7 +320,7 @@ final class VirtualMachine extends Resource
         ]);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -348,7 +348,7 @@ final class VirtualMachine extends Resource
         $response = $this->client->put(sprintf('/api/vps/%s/virtual-machines/%d/nameservers', $version, $virtualMachineId), $data);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -376,6 +376,6 @@ final class VirtualMachine extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/metrics', $version, $virtualMachineId), $data);
 
         /** @var Metrics */
-        return $this->transformResponse(Metrics::class, $response);
+        return $this->transform(Metrics::class, $response);
     }
 }

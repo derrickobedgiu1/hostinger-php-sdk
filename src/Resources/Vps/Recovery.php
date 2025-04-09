@@ -42,7 +42,7 @@ final class Recovery extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/recovery', $version, $virtualMachineId), $data);
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 
     /**
@@ -65,6 +65,6 @@ final class Recovery extends Resource
         $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/recovery', $version, $virtualMachineId));
 
         /** @var Action */
-        return $this->transformResponse(Action::class, $response);
+        return $this->transform(Action::class, $response);
     }
 }

@@ -39,7 +39,7 @@ final class PostInstallScript extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/post-install-scripts', $version), $query);
 
         /** @var PaginatedResponse */
-        return $this->transformResponse(PostInstallScriptData::class, $response);
+        return $this->transform(PostInstallScriptData::class, $response);
     }
 
     /**
@@ -62,7 +62,7 @@ final class PostInstallScript extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/post-install-scripts/%d', $version, $postInstallScriptId));
 
         /** @var PostInstallScriptData */
-        return $this->transformResponse(PostInstallScriptData::class, $response);
+        return $this->transform(PostInstallScriptData::class, $response);
     }
 
     /**
@@ -89,7 +89,7 @@ final class PostInstallScript extends Resource
         $response = $this->client->post(sprintf('/api/vps/%s/post-install-scripts', $version), $data);
 
         /** @var PostInstallScriptData */
-        return $this->transformResponse(PostInstallScriptData::class, $response);
+        return $this->transform(PostInstallScriptData::class, $response);
     }
 
     /**
@@ -117,7 +117,7 @@ final class PostInstallScript extends Resource
         $response = $this->client->put(sprintf('/api/vps/%s/post-install-scripts/%d', $version, $postInstallScriptId), $data);
 
         /** @var PostInstallScriptData */
-        return $this->transformResponse(PostInstallScriptData::class, $response);
+        return $this->transform(PostInstallScriptData::class, $response);
     }
 
     /**

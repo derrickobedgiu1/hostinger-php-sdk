@@ -34,6 +34,6 @@ final class Portfolio extends Resource
         $response = $this->client->get(sprintf('/api/domains/%s/portfolio', $version));
 
         /** @var array<Domain> */
-        return $this->transformResponse(Domain::class, $response);
+        return $this->transform(Domain::class, $response);
     }
 }

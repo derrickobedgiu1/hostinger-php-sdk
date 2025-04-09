@@ -34,7 +34,7 @@ final class OsTemplate extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/templates', $version));
 
         /** @var array<OsTemplateData> */
-        return $this->transformResponse(OsTemplateData::class, $response);
+        return $this->transform(OsTemplateData::class, $response);
     }
 
     /**
@@ -57,6 +57,6 @@ final class OsTemplate extends Resource
         $response = $this->client->get(sprintf('/api/vps/%s/templates/%d', $version, $templateId));
 
         /** @var OsTemplateData */
-        return $this->transformResponse(OsTemplateData::class, $response);
+        return $this->transform(OsTemplateData::class, $response);
     }
 }

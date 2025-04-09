@@ -39,7 +39,7 @@ abstract class Resource
      *
      * @return T|array<int, T>|PaginatedResponse The transformed response
      */
-    protected function transformResponse(string $dataClass, array $response): mixed
+    protected function transform(string $dataClass, array $response): mixed
     {
         return ResponseFactory::createResponse($dataClass, $response);
     }
