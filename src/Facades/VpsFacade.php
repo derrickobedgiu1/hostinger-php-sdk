@@ -11,6 +11,7 @@ use DerrickOb\HostingerApi\Resources\Vps\DataCenter;
 use DerrickOb\HostingerApi\Resources\Vps\Firewall;
 use DerrickOb\HostingerApi\Resources\Vps\MalwareScanner;
 use DerrickOb\HostingerApi\Resources\Vps\OsTemplate;
+use DerrickOb\HostingerApi\Resources\Vps\PostInstallScript;
 use DerrickOb\HostingerApi\Resources\Vps\PtrRecord;
 use DerrickOb\HostingerApi\Resources\Vps\PublicKey;
 use DerrickOb\HostingerApi\Resources\Vps\Recovery;
@@ -159,5 +160,17 @@ final class VpsFacade
     public function virtualMachines(): VirtualMachine
     {
         return new VirtualMachine($this->client);
+    }
+
+    /**
+     * Access the PostInstallScript resource.
+     *
+     * @link https://developers.hostinger.com/#tag/vps-post-install-scripts
+     *
+     * @return PostInstallScript The post-install script resource instance
+     */
+    public function postInstallScripts(): PostInstallScript
+    {
+        return new PostInstallScript($this->client);
     }
 }

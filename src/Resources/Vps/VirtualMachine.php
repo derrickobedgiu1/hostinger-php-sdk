@@ -77,6 +77,7 @@ final class VirtualMachine extends Resource
      *     enable_backups?: bool,
      *     ns1?: string,
      *     ns2?: string,
+     *     post_install_script_id?: int,
      *     public_key?: array{
      *         name: string,
      *         key: string
@@ -177,7 +178,8 @@ final class VirtualMachine extends Resource
      * @param int $virtualMachineId Virtual machine ID
      * @param array{
      *     password: string,
-     *     template_id: int
+     *     template_id: int,
+     *     post_install_script_id?: int,
      * } $data Reinstall data with new password and template
      *
      * @return Action The initiated reinstall action
