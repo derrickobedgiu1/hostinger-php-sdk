@@ -89,7 +89,8 @@ final class Client implements ClientInterface
     /**
      * Send a DELETE request.
      *
-     * @param string $path API endpoint path
+     * @param string               $path API endpoint path
+     * @param array<string, mixed> $data Optional request data
      *
      * @return array<string, mixed> Response data
      *
@@ -98,9 +99,11 @@ final class Client implements ClientInterface
      * @throws RateLimitException      When rate limit is exceeded
      * @throws ApiException            For other API errors
      */
-    public function delete(string $path): array
+    public function delete(string $path, array $data = []): array
     {
-        return $this->httpClient->request('DELETE', $path);
+        $options = $data === [] ? [] : ['json' => $data];
+
+        return $this->httpClient->request('DELETE', $path, $options);
     }
 
     /**
