@@ -21,6 +21,12 @@ final class VirtualMachine extends Data
     /** @var int|null ID of the active firewall group, or null if none. */
     public ?int $firewall_group_id;
 
+    /** @var string|null Subscription ID associated with this virtual machine. */
+    public ?string $subscription_id;
+
+    /** @var string|null VPS plan name. */
+    public ?string $plan;
+
     /** @var string Hostname of the virtual machine. */
     public string $hostname;
 
@@ -64,6 +70,8 @@ final class VirtualMachine extends Data
      * @param array{
      *      id: int,
      *      firewall_group_id?: int|null,
+     *      subscription_id?: string|null,
+     *      plan?: string|null,
      *      hostname: string,
      *      state: string,
      *      actions_lock: string,
@@ -98,6 +106,8 @@ final class VirtualMachine extends Data
     {
         $this->id = $data['id'];
         $this->firewall_group_id = $data['firewall_group_id'] ?? null;
+        $this->subscription_id = $data['subscription_id'] ?? null;
+        $this->plan = $data['plan'] ?? null;
         $this->hostname = $data['hostname'];
         $this->state = VirtualMachineState::from($data['state']);
         $this->actions_lock = ActionsLock::from($data['actions_lock']);

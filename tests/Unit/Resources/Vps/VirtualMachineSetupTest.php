@@ -45,7 +45,7 @@ test('can setup new virtual machine', function (): void {
         ->and($response->hostname)->toBe($data['hostname']);
 });
 
-test('can reinstall virtual machine', function (): void {
+test('can recreate virtual machine', function (): void {
     $faker = faker();
     $virtualMachineId = $faker->randomNumber(7);
 
@@ -54,19 +54,19 @@ test('can reinstall virtual machine', function (): void {
         'template_id' => $faker->randomNumber(7),
     ];
 
-    $action = TestFactory::action(['name' => 'reinstall']);
+    $action = TestFactory::action(['name' => 'recreate']);
 
     $client = createMockClient();
     $client->shouldReceive('post')
-        ->with('/api/vps/v1/virtual-machines/' . $virtualMachineId . '/reinstall', $data)
+        ->with('/api/vps/v1/virtual-machines/' . $virtualMachineId . '/recreate', $data)
         ->once()
         ->andReturn($action);
 
     $resource = new VirtualMachine($client);
-    $response = $resource->reinstall($virtualMachineId, $data);
+    $response = $resource->recreate($virtualMachineId, $data);
 
     expect($response)->toBeInstanceOf(ActionData::class)
-        ->and($response->name)->toBe('reinstall');
+        ->and($response->name)->toBe('recreate');
 });
 
 test('can set nameservers for virtual machine', function (): void {

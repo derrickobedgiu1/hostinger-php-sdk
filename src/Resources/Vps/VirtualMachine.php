@@ -71,7 +71,7 @@ final class VirtualMachine extends Resource
      * @param array{
      *     template_id: int,
      *     data_center_id: int,
-     *     password: string,
+     *     password?: string,
      *     hostname?: string,
      *     install_monarx?: bool,
      *     enable_backups?: bool,
@@ -173,29 +173,32 @@ final class VirtualMachine extends Resource
     }
 
     /**
-     * Reinstall a virtual machine.
+     * Recreate a virtual machine.
+     *
+     * This will recreate a virtual machine from scratch with a fresh OS installation.
+     * All data will be lost. Snapshots will be deleted.
      *
      * @param int $virtualMachineId Virtual machine ID
      * @param array{
-     *     password: string,
      *     template_id: int,
-     *     post_install_script_id?: int,
-     * } $data Reinstall data with new password and template
+     *     password?: string,
+     *     post_install_script_id?: int
+     * } $data Recreation data with template ID and optional password
      *
-     * @return Action The initiated reinstall action
+     * @return Action The initiated recreate action
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
      * @throws RateLimitException      When rate limit is exceeded (429)
      * @throws ApiException            For other API errors
      *
-     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/reinstall
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recreate
      *
      */
-    public function reinstall(int $virtualMachineId, array $data): Action
+    public function recreate(int $virtualMachineId, array $data): Action
     {
         $version = $this->getApiVersion();
-        $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/reinstall', $version, $virtualMachineId), $data);
+        $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines/%d/recreate', $version, $virtualMachineId), $data);
 
         /** @var Action */
         return $this->transformResponse(Action::class, $response);
@@ -253,6 +256,14 @@ final class VirtualMachine extends Resource
     /**
      * Set root password for a virtual machine.
      *
+     * Password will be checked against leaked password databases.
+     * Requirements for the password are:
+     * - At least 8 characters long
+     * - At least one uppercase letter
+     * - At least one lowercase letter
+     * - At least one number
+     * - Is not leaked publicly
+     *
      * @param int    $virtualMachineId Virtual machine ID
      * @param string $password         New root password
      *
@@ -279,6 +290,14 @@ final class VirtualMachine extends Resource
 
     /**
      * Set panel password for a virtual machine.
+     *
+     * Password will be checked against leaked password databases.
+     * Requirements for the password are:
+     * - At least 8 characters long
+     * - At least one uppercase letter
+     * - At least one lowercase letter
+     * - At least one number
+     * - Is not leaked publicly
      *
      * @param int    $virtualMachineId Virtual machine ID
      * @param string $password         New panel password
