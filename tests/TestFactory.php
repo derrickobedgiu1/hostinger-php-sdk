@@ -37,6 +37,8 @@ final class TestFactory
 
         return array_merge([
             'id' => $faker->randomNumber(5),
+            'subscription_id' => $faker->regexify('[A-Za-z0-9]{15}'),
+            'plan' => 'KVM ' . $faker->numberBetween(1, 4),
             'hostname' => $faker->domainName(),
             'state' => $faker->randomElement(array_column(VirtualMachineState::cases(), 'value')),
             'actions_lock' => $faker->randomElement(array_column(ActionsLock::cases(), 'value')),
@@ -337,6 +339,7 @@ final class TestFactory
 
         return array_merge([
             'id' => $faker->randomNumber(7),
+            'subscription_id' => $faker->regexify('[A-Za-z0-9]{15}'),
             'status' => $faker->randomElement(array_column(OrderStatus::cases(), 'value')),
             'currency' => 'USD',
             'subtotal' => $faker->numberBetween(500, 10000),
@@ -356,6 +359,28 @@ final class TestFactory
             ],
             'created_at' => $faker->dateTimeThisMonth()->format('Y-m-d\TH:i:s\Z'),
             'updated_at' => $faker->dateTimeThisMonth()->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a post-install script structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> Post-install script data
+     */
+    public static function postInstallScript(array $attributes = []): array
+    {
+        $faker = faker();
+        $createdAt = $faker->dateTimeThisYear();
+        $updatedAt = (clone $createdAt)->modify('+' . $faker->numberBetween(1, 30) . ' days');
+
+        return array_merge([
+            'id' => $faker->randomNumber(7),
+            'name' => 'Script ' . $faker->word(),
+            'content' => "#!/bin/bash\n\n" . $faker->paragraph(),
+            'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
+            'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
         ], $attributes);
     }
 }
