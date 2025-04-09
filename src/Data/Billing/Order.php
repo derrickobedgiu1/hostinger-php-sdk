@@ -17,6 +17,9 @@ final class Order extends Data
     /** @var int Unique identifier for the order. */
     public int $id;
 
+    /** @var string|null Subscription ID associated with this order. */
+    public ?string $subscription_id;
+
     /** @var OrderStatus Current status of the order. */
     public OrderStatus $status;
 
@@ -41,6 +44,7 @@ final class Order extends Data
     /**
      * @param array{
      *      id: int,
+     *      subscription_id?: string,
      *      status: string,
      *      currency: string,
      *      subtotal: int,
@@ -67,6 +71,7 @@ final class Order extends Data
     public function __construct(array $data)
     {
         $this->id = $data['id'];
+        $this->subscription_id = $data['subscription_id'] ?? null;
         $this->status = OrderStatus::from($data['status']);
         $this->currency = $data['currency'];
         $this->subtotal = $data['subtotal'];

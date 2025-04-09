@@ -148,8 +148,8 @@ final class Firewall extends Resource
     /**
      * Update firewall rule.
      *
-     * @param int $firewallId     Firewall ID
-     * @param int $firewallRuleId Rule ID
+     * @param int $firewallId Firewall ID
+     * @param int $ruleId     Rule ID
      * @param array{
      *     protocol: string,
      *     port: string,
@@ -167,10 +167,10 @@ final class Firewall extends Resource
      * @link https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
      *
      */
-    public function updateRule(int $firewallId, int $firewallRuleId, array $data): FirewallRule
+    public function updateRule(int $firewallId, int $ruleId, array $data): FirewallRule
     {
         $version = $this->getApiVersion();
-        $response = $this->client->put(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $firewallRuleId), $data);
+        $response = $this->client->put(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $ruleId), $data);
 
         /** @var FirewallRule */
         return $this->transformResponse(FirewallRule::class, $response);
@@ -179,8 +179,8 @@ final class Firewall extends Resource
     /**
      * Delete firewall rule.
      *
-     * @param int $firewallId     Firewall ID
-     * @param int $firewallRuleId Rule ID
+     * @param int $firewallId Firewall ID
+     * @param int $ruleId     Rule ID
      *
      * @return array{message: string} Success response
      *
@@ -192,12 +192,12 @@ final class Firewall extends Resource
      * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
      *
      */
-    public function deleteRule(int $firewallId, int $firewallRuleId): array
+    public function deleteRule(int $firewallId, int $ruleId): array
     {
         $version = $this->getApiVersion();
 
         /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $firewallRuleId));
+        return $this->client->delete(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $ruleId));
     }
 
     /**

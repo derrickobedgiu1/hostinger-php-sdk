@@ -59,3 +59,44 @@ test('can list subscriptions', function (): void {
     $periodUnit = PeriodUnit::from($subscriptions[0]['billing_period_unit']);
     expect($response[0]->billing_period_unit)->toBe($periodUnit);
 });
+
+test('can cancel subscription', function (): void {
+    $faker = faker();
+    $subscriptionId = $faker->regexify('[A-Za-z0-9]{15}');
+
+    $data = [
+        'reason_code' => 'too_expensive',
+        'cancel_option' => 'immediate',
+    ];
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('delete')
+        ->with('/api/billing/v1/subscriptions/' . $subscriptionId, $data)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Subscription($client);
+    $response = $resource->cancel($subscriptionId, $data);
+
+    expect($response)->toBe($successResponse);
+});
+
+test('can cancel subscription without additional data', function (): void {
+    $faker = faker();
+    $subscriptionId = $faker->regexify('[A-Za-z0-9]{15}');
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('delete')
+        ->with('/api/billing/v1/subscriptions/' . $subscriptionId, [])
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Subscription($client);
+    $response = $resource->cancel($subscriptionId);
+
+    expect($response)->toBe($successResponse);
+});
