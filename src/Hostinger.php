@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi;
 
 use DerrickOb\HostingerApi\Facades\BillingFacade;
+use DerrickOb\HostingerApi\Facades\DnsFacade;
 use DerrickOb\HostingerApi\Facades\DomainFacade;
 use DerrickOb\HostingerApi\Facades\VpsFacade;
 use DerrickOb\HostingerApi\HttpClient\HttpClientInterface;
@@ -60,6 +61,16 @@ final class Hostinger
     public function domains(): DomainFacade
     {
         return new DomainFacade($this->client);
+    }
+
+    /**
+     * Access the DNS facade.
+     *
+     * @return DnsFacade The DNS facade
+     */
+    public function dns(): DnsFacade
+    {
+        return new DnsFacade($this->client);
     }
 
     /**

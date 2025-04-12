@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
+use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
+use DerrickOb\HostingerApi\Data\Vps\PublicKey;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
@@ -354,11 +356,9 @@ final class VirtualMachine extends Resource
     /**
      * Get metrics for a virtual machine.
      *
-     * @param int $virtualMachineId Virtual machine ID
-     * @param array{
-     *     date_from: string,
-     *     date_to: string
-     * } $data Metrics request data with date range
+     * @param int    $virtualMachineId Virtual machine ID
+     * @param string $dateFrom         Start date (RFC 3339 format)
+     * @param string $dateTo           End date (RFC 3339 format)
      *
      * @return Metrics The virtual machine metrics
      *
@@ -370,12 +370,46 @@ final class VirtualMachine extends Resource
      * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics
      *
      */
-    public function getMetrics(int $virtualMachineId, array $data): Metrics
+    public function getMetrics(int $virtualMachineId, string $dateFrom, string $dateTo): Metrics
     {
         $version = $this->getApiVersion();
-        $response = $this->client->get(sprintf('/api/vps/%s/virtual-machines/%d/metrics', $version, $virtualMachineId), $data);
+        $query = [
+            'date_from' => $dateFrom,
+            'date_to' => $dateTo,
+        ];
+
+        $response = $this->client->get(
+            sprintf('/api/vps/%s/virtual-machines/%d/metrics', $version, $virtualMachineId),
+            $query
+        );
 
         /** @var Metrics */
         return $this->transform(Metrics::class, $response);
+    }
+
+    /**
+     * Get attached public keys for a virtual machine.
+     *
+     * @param int                  $virtualMachineId Virtual machine ID
+     * @param array<string, mixed> $query            Optional query parameters (like page)
+     *
+     * @return PaginatedResponse The public keys response
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/public-keys
+     */
+    public function getAttachedPublicKeys(int $virtualMachineId, array $query = []): PaginatedResponse
+    {
+        $version = $this->getApiVersion();
+        $response = $this->client->get(
+            sprintf('/api/vps/%s/virtual-machines/%d/public-keys', $version, $virtualMachineId),
+            $query
+        );
+
+        /** @var PaginatedResponse */
+        return $this->transform(PublicKey::class, $response);
     }
 }

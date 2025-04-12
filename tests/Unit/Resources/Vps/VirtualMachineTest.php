@@ -2,6 +2,7 @@
 
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
+use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
@@ -254,4 +255,44 @@ test('can set nameservers for virtual machine', function (): void {
 
     expect($response)->toBeInstanceOf(ActionData::class)
         ->and($response->name)->toBe('set_nameservers');
+});
+
+test('can get attached public keys', function (): void {
+    $faker = faker();
+    $virtualMachineId = $faker->randomNumber(5);
+
+    $publicKeys = [];
+    for ($i = 0; $i < 2; $i++) {
+        $publicKeys[] = [
+            'id' => $faker->randomNumber(7),
+            'name' => 'Key ' . $faker->word(),
+            'key' => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD' . $faker->sha256(),
+        ];
+    }
+
+    $response = [
+        'data' => $publicKeys,
+        'meta' => [
+            'current_page' => 1,
+            'per_page' => 15,
+            'total' => 2,
+        ],
+    ];
+
+    $client = createMockClient();
+    $client->shouldReceive('get')
+        ->with('/api/vps/v1/virtual-machines/' . $virtualMachineId . '/public-keys', [])
+        ->once()
+        ->andReturn($response);
+
+    $resource = new VirtualMachine($client);
+    $result = $resource->getAttachedPublicKeys($virtualMachineId);
+
+    expect($result)->toBeInstanceOf(PaginatedResponse::class)
+        ->and($result->getCurrentPage())->toBe(1)
+        ->and($result->getTotal())->toBe(2)
+        ->and($result->getData())->toHaveCount(2)
+        ->and($result->getData()[0]->id)->toBe($publicKeys[0]['id'])
+        ->and($result->getData()[0]->name)->toBe($publicKeys[0]['name'])
+        ->and($result->getData()[0]->key)->toBe($publicKeys[0]['key']);
 });

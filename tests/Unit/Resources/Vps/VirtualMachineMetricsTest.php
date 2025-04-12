@@ -14,7 +14,7 @@ test('can get virtual machine metrics', function (): void {
     $dateFrom = $faker->dateTimeBetween('-7 days', '-2 days')->format('Y-m-d\TH:i:s\Z');
     $dateTo = $faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d\TH:i:s\Z');
 
-    $data = [
+    $query = [
         'date_from' => $dateFrom,
         'date_to' => $dateTo,
     ];
@@ -77,12 +77,12 @@ test('can get virtual machine metrics', function (): void {
 
     $client = createMockClient();
     $client->shouldReceive('get')
-        ->with('/api/vps/v1/virtual-machines/' . $virtualMachineId . '/metrics', $data)
+        ->with('/api/vps/v1/virtual-machines/' . $virtualMachineId . '/metrics', $query)
         ->once()
         ->andReturn($metricsResponse);
 
     $resource = new VirtualMachine($client);
-    $response = $resource->getMetrics($virtualMachineId, $data);
+    $response = $resource->getMetrics($virtualMachineId, $dateFrom, $dateTo);
 
     expect($response)->toBeInstanceOf(Metrics::class)
         ->and($response->cpu_usage->unit ?? '')->toBe('%')
