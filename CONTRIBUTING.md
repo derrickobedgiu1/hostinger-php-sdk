@@ -15,7 +15,7 @@ Contributions are welcome and will be fully credited.
 
 ## Development Environment
 
-We recommend using Docker to set up your development environment. Here's a quick way to get started:
+Here's a quick way to get started:
 
 ```bash
 # Clone the repository
@@ -24,12 +24,9 @@ cd hostinger-php-sdk
 
 # Install dependencies
 composer install
-
-# Run cs, phpstan, rector & check-all
-composer check-all
 ```
 
-## Fix Test Errors
+## Test Your Code
 
 ```bash
 # Run pest
@@ -38,13 +35,27 @@ composer test
 # Run static analysis
 composer stan
 
+# Run code style check
+composer cs
+
+# Run rector check
+composer rector
+
+# Run all the above
+composer check-all
+```
+
+## Fix Errors
+
+```bash
+
 # Fix code style issues
 composer cs:fix
 
-# Run rector to apply automatic code fixes
+# Fix rector
 composer rector:fix
 
-# Run fixer for both cs and rector
+# Fix all the above
 composer fix-all
 ```
 
@@ -113,10 +124,10 @@ final class Example extends Data
 
 When creating a new resource class:
 
-1. Extend the `AbstractResource` class.
+1. Extend the `Resource` class.
 2. Use descriptive method names that align with the API operations.
 3. Add proper PHPDoc comments to document the parameters and return types.
-4. Use the `transformResponse` method to convert API responses to DTOs.
+4. Use the `transform` method to convert API responses to DTOs.
 
 Example:
 
