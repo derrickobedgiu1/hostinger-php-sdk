@@ -6,6 +6,7 @@ namespace DerrickOb\HostingerApi\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Snapshot as SnapshotData;
 use DerrickOb\HostingerApi\Data\Dns\SnapshotWithContent;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
@@ -69,7 +70,7 @@ final class Snapshot extends Resource
      * @param string $domain     Domain name
      * @param int    $snapshotId Snapshot ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -77,11 +78,13 @@ final class Snapshot extends Resource
      *
      * @link https://developers.hostinger.com/#tag/dns-snapshot/POST/api/dns/v1/snapshots/{domain}/{snapshotId}
      */
-    public function restore(string $domain, int $snapshotId): array
+    public function restore(string $domain, int $snapshotId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->post(sprintf('/api/dns/%s/snapshots/%s/%d', $version, $domain, $snapshotId));
+        $response = $this->client->post(sprintf('/api/dns/%s/snapshots/%s/%d', $version, $domain, $snapshotId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

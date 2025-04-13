@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\PostInstallScript as PostInstallScriptData;
 use DerrickOb\HostingerApi\Resources\Vps\PostInstallScript;
 use DerrickOb\HostingerApi\Tests\TestFactory;
@@ -135,5 +136,6 @@ test('can delete post-install script', function (): void {
     $resource = new PostInstallScript($client);
     $response = $resource->delete($scriptId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

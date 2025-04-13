@@ -78,15 +78,14 @@ final class ResponseFactory
     }
 
     /**
-     * Create the appropriate response type based on the API response structure.
+     * Automatically create the appropriate response type based on the API response structure.
      *
      * @template T of Data
      *
      * @param class-string<T>          $class    Data class to instantiate
      * @param array<string|int, mixed> $response Raw API response
      *
-     * @return T|array<int, T>|PaginatedResponse Single data object, array of data objects,
-     *                                           or paginated response depending on the response structure
+     * @return T|array<int, T>|PaginatedResponse Appropriate data object
      */
     public static function createResponse(string $class, array $response): mixed
     {

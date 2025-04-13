@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\Subscription as SubscriptionData;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
@@ -47,7 +48,7 @@ final class Subscription extends Resource
      *     cancel_option?: string|null
      * } $data Optional cancellation data with reason code and cancel option
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -56,11 +57,13 @@ final class Subscription extends Resource
      *
      * @link https://developers.hostinger.com/#tag/billing-subscriptions/DELETE/api/billing/v1/subscriptions/{subscriptionId}
      */
-    public function cancel(string $subscriptionId, array $data = []): array
+    public function cancel(string $subscriptionId, array $data = []): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/billing/%s/subscriptions/%s', $version, $subscriptionId), $data);
+        $response = $this->client->delete(sprintf('/api/billing/%s/subscriptions/%s', $version, $subscriptionId), $data);
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

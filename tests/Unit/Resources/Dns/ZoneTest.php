@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Name;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Resources\Dns\Zone;
 
 test('can get DNS zone records', function (): void {
@@ -68,5 +69,25 @@ test('can reset DNS zone', function (): void {
     $resource = new Zone($client);
     $response = $resource->reset($domain, $data);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
+});
+
+test('can reset DNS zone with default options', function (): void {
+    $faker = faker();
+    $domain = $faker->domainName();
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('post')
+        ->with('/api/dns/v1/zones/' . $domain . '/reset', [])
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Zone($client);
+    $response = $resource->reset($domain);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

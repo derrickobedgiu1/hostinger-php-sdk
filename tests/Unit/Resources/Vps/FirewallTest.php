@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Firewall as FirewallData;
 use DerrickOb\HostingerApi\Data\Vps\FirewallRule;
@@ -114,6 +115,52 @@ test('can create a firewall rule', function (): void {
         ->and($response->port)->toBe($firewallRule['port']);
 });
 
+test('can update firewall rule', function (): void {
+    $faker = faker();
+    $firewallId = $faker->randomNumber(5);
+    $ruleId = $faker->randomNumber(5);
+    $firewallRule = TestFactory::firewallRule(['id' => $ruleId]);
+
+    $data = [
+        'protocol' => 'TCP',
+        'port' => '80',
+        'source' => 'custom',
+        'source_detail' => '192.168.1.0/24',
+    ];
+
+    $client = createMockClient();
+    $client->shouldReceive('put')
+        ->with('/api/vps/v1/firewall/' . $firewallId . '/rules/' . $ruleId, $data)
+        ->once()
+        ->andReturn($firewallRule);
+
+    $resource = new Firewall($client);
+    $response = $resource->updateRule($firewallId, $ruleId, $data);
+
+    expect($response)->toBeInstanceOf(FirewallRule::class)
+        ->and($response->id)->toBe($ruleId);
+});
+
+test('can delete a firewall rule', function (): void {
+    $faker = faker();
+    $firewallId = $faker->randomNumber(5);
+    $ruleId = $faker->randomNumber(5);
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('delete')
+        ->with('/api/vps/v1/firewall/' . $firewallId . '/rules/' . $ruleId)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Firewall($client);
+    $response = $resource->deleteRule($firewallId, $ruleId);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
+});
+
 test('can activate a firewall', function (): void {
     $faker = faker();
     $firewallId = $faker->randomNumber(5);
@@ -171,5 +218,26 @@ test('can delete a firewall', function (): void {
     $resource = new Firewall($client);
     $response = $resource->delete($firewallId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
+});
+
+test('can sync a firewall', function (): void {
+    $faker = faker();
+    $firewallId = $faker->randomNumber(5);
+    $virtualMachineId = $faker->randomNumber(5);
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('post')
+        ->with('/api/vps/v1/firewall/' . $firewallId . '/sync/' . $virtualMachineId)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Firewall($client);
+    $response = $resource->sync($firewallId, $virtualMachineId);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

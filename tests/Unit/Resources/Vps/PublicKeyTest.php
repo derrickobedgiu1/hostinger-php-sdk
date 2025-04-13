@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey as PublicKeyData;
 use DerrickOb\HostingerApi\Resources\Vps\PublicKey;
@@ -94,7 +95,8 @@ test('can delete a public key', function (): void {
     $resource = new PublicKey($client);
     $response = $resource->delete($keyId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });
 
 test('can attach public key to virtual machine', function (): void {

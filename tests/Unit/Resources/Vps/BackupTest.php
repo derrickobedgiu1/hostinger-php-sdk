@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\Backup as BackupData;
 use DerrickOb\HostingerApi\Resources\Vps\Backup;
@@ -64,7 +65,8 @@ test('can delete a backup', function (): void {
     $resource = new Backup($client);
     $response = $resource->delete($virtualMachineId, $backupId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });
 
 test('can restore a backup', function (): void {

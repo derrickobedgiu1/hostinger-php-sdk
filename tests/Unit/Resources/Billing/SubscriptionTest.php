@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\Subscription as SubscriptionData;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Enums\PeriodUnit;
 use DerrickOb\HostingerApi\Enums\SubscriptionStatus;
 use DerrickOb\HostingerApi\Resources\Billing\Subscription;
@@ -78,7 +79,8 @@ test('can cancel subscription', function (): void {
     $resource = new Subscription($client);
     $response = $resource->cancel($subscriptionId, $data);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });
 
 test('can cancel subscription without additional data', function (): void {
@@ -96,5 +98,6 @@ test('can cancel subscription without additional data', function (): void {
     $resource = new Subscription($client);
     $response = $resource->cancel($subscriptionId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

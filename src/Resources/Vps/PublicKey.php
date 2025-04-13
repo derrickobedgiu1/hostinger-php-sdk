@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey as PublicKeyData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
@@ -75,7 +76,7 @@ final class PublicKey extends Resource
      *
      * @param int $publicKeyId Public key ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -84,12 +85,13 @@ final class PublicKey extends Resource
      * @link https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId}
      *
      */
-    public function delete(int $publicKeyId): array
+    public function delete(int $publicKeyId): SuccessResponse
     {
         $version = $this->getApiVersion();
+        $response = $this->client->delete(sprintf('/api/vps/%s/public-keys/%d', $version, $publicKeyId));
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/public-keys/%d', $version, $publicKeyId));
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 
     /**

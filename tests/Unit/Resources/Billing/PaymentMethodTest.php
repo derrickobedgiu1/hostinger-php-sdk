@@ -3,6 +3,7 @@
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Enums\PaymentMethodType;
 use DerrickOb\HostingerApi\Resources\Billing\PaymentMethod;
 
@@ -61,7 +62,8 @@ test('can set default payment method', function (): void {
     $resource = new PaymentMethod($client);
     $response = $resource->setDefault($paymentMethodId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });
 
 test('can delete payment method', function (): void {
@@ -79,5 +81,6 @@ test('can delete payment method', function (): void {
     $resource = new PaymentMethod($client);
     $response = $resource->delete($paymentMethodId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

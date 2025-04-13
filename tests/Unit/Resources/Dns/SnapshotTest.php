@@ -4,6 +4,7 @@ namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Snapshot as SnapshotData;
 use DerrickOb\HostingerApi\Data\Dns\SnapshotWithContent;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Resources\Dns\Snapshot;
 
 test('can list DNS snapshots', function (): void {
@@ -80,5 +81,6 @@ test('can restore DNS snapshot', function (): void {
     $resource = new Snapshot($client);
     $response = $resource->restore($domain, $snapshotId);
 
-    expect($response)->toBe($successResponse);
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
@@ -42,21 +43,22 @@ final class PaymentMethod extends Resource
      *
      * @param int $paymentMethodId ID of the payment method to set as default
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
+     * @throws ApiException            For other API errors
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
-     * @throws ApiException            For other API errors
      *
      * @link https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId}
-     *
      */
-    public function setDefault(int $paymentMethodId): array
+    public function setDefault(int $paymentMethodId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->post(sprintf('/api/billing/%s/payment-methods/%d', $version, $paymentMethodId));
+        $response = $this->client->post(sprintf('/api/billing/%s/payment-methods/%d', $version, $paymentMethodId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 
     /**
@@ -64,7 +66,7 @@ final class PaymentMethod extends Resource
      *
      * @param int $paymentMethodId ID of the payment method to delete
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -73,11 +75,13 @@ final class PaymentMethod extends Resource
      * @link https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId}
      *
      */
-    public function delete(int $paymentMethodId): array
+    public function delete(int $paymentMethodId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/billing/%s/payment-methods/%d', $version, $paymentMethodId));
+        $response = $this->client->delete(sprintf('/api/billing/%s/payment-methods/%d', $version, $paymentMethodId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

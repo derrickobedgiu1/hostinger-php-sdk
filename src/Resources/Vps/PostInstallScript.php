@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\PostInstallScript as PostInstallScriptData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
@@ -125,7 +126,7 @@ final class PostInstallScript extends Resource
      *
      * @param int $postInstallScriptId Post-install script ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -134,11 +135,13 @@ final class PostInstallScript extends Resource
      * @link https://developers.hostinger.com/#tag/vps-post-install-scripts/DELETE/api/vps/v1/post-install-scripts/{postInstallScriptId}
      *
      */
-    public function delete(int $postInstallScriptId): array
+    public function delete(int $postInstallScriptId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/post-install-scripts/%d', $version, $postInstallScriptId));
+        $response = $this->client->delete(sprintf('/api/vps/%s/post-install-scripts/%d', $version, $postInstallScriptId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

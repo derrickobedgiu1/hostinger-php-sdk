@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Name;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
@@ -50,7 +51,7 @@ final class Zone extends Resource
      *     whitelisted_record_types?: array<string>
      * } $data Optional reset parameters
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -59,11 +60,13 @@ final class Zone extends Resource
      *
      * @link https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/reset
      */
-    public function reset(string $domain, array $data = []): array
+    public function reset(string $domain, array $data = []): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->post(sprintf('/api/dns/%s/zones/%s/reset', $version, $domain), $data);
+        $response = $this->client->post(sprintf('/api/dns/%s/zones/%s/reset', $version, $domain), $data);
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

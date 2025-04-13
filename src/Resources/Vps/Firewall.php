@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Firewall as FirewallData;
 use DerrickOb\HostingerApi\Data\Vps\FirewallRule;
@@ -98,7 +99,7 @@ final class Firewall extends Resource
      *
      * @param int $firewallId Firewall ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -107,12 +108,14 @@ final class Firewall extends Resource
      * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}
      *
      */
-    public function delete(int $firewallId): array
+    public function delete(int $firewallId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/firewall/%d', $version, $firewallId));
+        $response = $this->client->delete(sprintf('/api/vps/%s/firewall/%d', $version, $firewallId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 
     /**
@@ -182,7 +185,7 @@ final class Firewall extends Resource
      * @param int $firewallId Firewall ID
      * @param int $ruleId     Rule ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -192,12 +195,14 @@ final class Firewall extends Resource
      * @link https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId}
      *
      */
-    public function deleteRule(int $firewallId, int $ruleId): array
+    public function deleteRule(int $firewallId, int $ruleId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $ruleId));
+        $response = $this->client->delete(sprintf('/api/vps/%s/firewall/%d/rules/%d', $version, $firewallId, $ruleId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 
     /**
@@ -256,7 +261,7 @@ final class Firewall extends Resource
      * @param int $firewallId       Firewall ID
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -265,11 +270,13 @@ final class Firewall extends Resource
      *
      * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId}
      */
-    public function sync(int $firewallId, int $virtualMachineId): array
+    public function sync(int $firewallId, int $virtualMachineId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->post(sprintf('/api/vps/%s/firewall/%d/sync/%d', $version, $firewallId, $virtualMachineId));
+        $response = $this->client->post(sprintf('/api/vps/%s/firewall/%d/sync/%d', $version, $firewallId, $virtualMachineId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 }

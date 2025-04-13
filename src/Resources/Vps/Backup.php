@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
+use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\Backup as BackupData;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
@@ -49,7 +50,7 @@ final class Backup extends Resource
      * @param int $virtualMachineId Virtual machine ID
      * @param int $backupId         Backup ID
      *
-     * @return array{message: string} Success response
+     * @return SuccessResponse Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws RateLimitException      When rate limit is exceeded (429)
@@ -58,12 +59,14 @@ final class Backup extends Resource
      * @link https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}
      *
      */
-    public function delete(int $virtualMachineId, int $backupId): array
+    public function delete(int $virtualMachineId, int $backupId): SuccessResponse
     {
         $version = $this->getApiVersion();
 
-        /** @var array{message: string} */
-        return $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d', $version, $virtualMachineId, $backupId));
+        $response = $this->client->delete(sprintf('/api/vps/%s/virtual-machines/%d/backups/%d', $version, $virtualMachineId, $backupId));
+
+        /** @var SuccessResponse */
+        return $this->transform(SuccessResponse::class, $response);
     }
 
     /**
