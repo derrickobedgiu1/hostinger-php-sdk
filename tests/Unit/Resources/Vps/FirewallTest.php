@@ -227,17 +227,18 @@ test('can sync a firewall', function (): void {
     $firewallId = $faker->randomNumber(5);
     $virtualMachineId = $faker->randomNumber(5);
 
-    $successResponse = ['message' => 'Request accepted'];
+    $action = TestFactory::action(['name' => 'sync_firewall']);
 
     $client = createMockClient();
     $client->shouldReceive('post')
         ->with('/api/vps/v1/firewall/' . $firewallId . '/sync/' . $virtualMachineId)
         ->once()
-        ->andReturn($successResponse);
+        ->andReturn($action);
 
     $resource = new Firewall($client);
     $response = $resource->sync($firewallId, $virtualMachineId);
 
-    expect($response)->toBeInstanceOf(SuccessResponse::class)
-        ->and($response->message)->toBe($successResponse['message']);
+    expect($response)->toBeInstanceOf(Action::class)
+        ->and($response->id)->toBe($action['id'])
+        ->and($response->name)->toBe($action['name']);
 });

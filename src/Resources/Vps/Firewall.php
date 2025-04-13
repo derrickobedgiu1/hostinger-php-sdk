@@ -261,7 +261,7 @@ final class Firewall extends Resource
      * @param int $firewallId       Firewall ID
      * @param int $virtualMachineId Virtual machine ID
      *
-     * @return SuccessResponse Success response
+     * @return Action Success response
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -270,13 +270,13 @@ final class Firewall extends Resource
      *
      * @link https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId}
      */
-    public function sync(int $firewallId, int $virtualMachineId): SuccessResponse
+    public function sync(int $firewallId, int $virtualMachineId): Action
     {
         $version = $this->getApiVersion();
 
         $response = $this->client->post(sprintf('/api/vps/%s/firewall/%d/sync/%d', $version, $firewallId, $virtualMachineId));
 
-        /** @var SuccessResponse */
-        return $this->transform(SuccessResponse::class, $response);
+        /** @var Action */
+        return $this->transform(Action::class, $response);
     }
 }
