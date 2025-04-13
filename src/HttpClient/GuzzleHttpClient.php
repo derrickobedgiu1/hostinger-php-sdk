@@ -64,22 +64,25 @@ final class GuzzleHttpClient implements HttpClientInterface
             $statusCode = $response->getStatusCode();
             /** @var array<string, mixed> $responseData */
             $responseData = json_decode($response->getBody()->getContents(), true) ?? [];
-            $message = $responseData['message'] ?? 'An error occurred';
-            $correlationId = $responseData['correlation_id'] ?? null;
+            $message = (string)($responseData['message'] ?? 'An error occurred');
+            $correlationId = isset($responseData['correlation_id']) ? (string)$responseData['correlation_id'] : null;
 
-            match ($statusCode) {
+            /** @var array<string, array<int, string>> $errors */
+            $errors = $responseData['errors'] ?? [];
+
+            return match ($statusCode) {
                 401 => throw new AuthenticationException($message, $statusCode, $correlationId),
                 422 => throw new ValidationException(
                     $message,
                     $statusCode,
                     $correlationId,
-                    $responseData['errors'] ?? []
+                    $errors
                 ),
                 429 => throw new RateLimitException($message, $statusCode, $correlationId),
                 default => throw new ApiException($message, $statusCode, $correlationId),
             };
         } catch (GuzzleException $e) {
-            throw new ApiException($e->getMessage(), $e->getCode());
+            throw new ApiException($e->getMessage(), (int)$e->getCode());
         }
     }
 }

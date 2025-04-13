@@ -5,10 +5,8 @@ namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 use DerrickOb\HostingerApi\Data\Billing\Order as OrderData;
 use DerrickOb\HostingerApi\Enums\OrderStatus;
 use DerrickOb\HostingerApi\Resources\Billing\Order;
-use Faker\Generator;
 
 test('can create new service order', function (): void {
-    /** @var Generator $faker */
     $faker = faker();
 
     $orderResponse = [

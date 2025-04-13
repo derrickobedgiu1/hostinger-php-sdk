@@ -18,6 +18,7 @@ abstract class Data implements \JsonSerializable
      */
     public static function fromArray(array $data): static
     {
+        // @phpstan-ignore-next-line
         return new static($data);
     }
 

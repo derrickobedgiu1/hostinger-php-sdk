@@ -6,12 +6,12 @@ use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
+use DerrickOb\HostingerApi\Data\Vps\PublicKey;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
 use DerrickOb\HostingerApi\Enums\ActionsLock;
 use DerrickOb\HostingerApi\Enums\VirtualMachineState;
 use DerrickOb\HostingerApi\Resources\Vps\VirtualMachine;
 use DerrickOb\HostingerApi\Tests\TestFactory;
-use Faker\Generator;
 
 test('can list virtual machines', function (): void {
     $virtualMachines = [
@@ -260,7 +260,6 @@ test('can set nameservers for virtual machine', function (): void {
 });
 
 test('can get virtual machine metrics', function (): void {
-    /** @var Generator $faker */
     $faker = faker();
     $virtualMachineId = $faker->randomNumber(7);
 
@@ -344,8 +343,8 @@ test('can get virtual machine metrics', function (): void {
         ->and($response->outgoing_traffic->unit ?? '')->toBe('bytes')
         ->and($response->incoming_traffic->unit ?? '')->toBe('bytes')
         ->and($response->uptime->unit ?? '')->toBe('milliseconds')
-        ->and($response->cpu_usage->usage ?? '')->toBeArray()
-        ->and(count($response->cpu_usage->usage ?? ''))->toBe(count($timestamps));
+        ->and($response->cpu_usage->usage ?? [])->toBeArray()
+        ->and(count($response->cpu_usage->usage ?? []))->toBe(count($timestamps));
 });
 
 test('can get attached public keys', function (): void {
@@ -383,6 +382,8 @@ test('can get attached public keys', function (): void {
         ->and($result->getCurrentPage())->toBe(1)
         ->and($result->getTotal())->toBe(2)
         ->and($result->getData())->toHaveCount(2)
+        ->and($result->getData())->toBeArray()
+        ->and($result->getData()[0])->toBeInstanceOf(PublicKey::class)
         ->and($result->getData()[0]->id)->toBe($publicKeys[0]['id'])
         ->and($result->getData()[0]->name)->toBe($publicKeys[0]['name'])
         ->and($result->getData()[0]->key)->toBe($publicKeys[0]['key']);

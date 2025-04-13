@@ -32,7 +32,6 @@ final class TestFactory
      */
     public static function virtualMachine(array $attributes = []): array
     {
-        /** @var Generator $faker */
         $faker = faker();
 
         return array_merge([
@@ -83,10 +82,13 @@ final class TestFactory
         $os = $faker->randomElement(['Ubuntu', 'Debian', 'CentOS', 'Fedora', 'Windows Server']);
         $version = $os === 'Windows Server' ? $faker->randomElement(['2019', '2022']) : $faker->randomElement(['20.04', '22.04', '11', '12', '8', '9', '37', '38']);
 
+        $name = sprintf('%s %s', $os, $version);
+        $description = sprintf('%s %s %s', $os, $version, ($os === 'Windows Server' ? '' : 'LTS'));
+
         return array_merge([
             'id' => $faker->randomNumber(5),
-            'name' => sprintf('%s %s', $os, $version),
-            'description' => sprintf('%s %s ', $os, $version) . ($os === 'Windows Server' ? '' : 'LTS'),
+            'name' => $name,
+            'description' => $description,
             'documentation' => $faker->optional(0.7)->url(),
         ], $attributes);
     }
@@ -171,7 +173,6 @@ final class TestFactory
      */
     public static function firewallRule(array $attributes = []): array
     {
-        /** @var Generator $faker */
         $faker = faker();
 
         $protocols = array_column(Protocol::cases(), 'value');
@@ -240,7 +241,6 @@ final class TestFactory
      */
     public static function catalogItem(array $attributes = []): array
     {
-        /** @var Generator $faker */
         $faker = faker();
         $id = 'hostingercom-vps-kvm' . $faker->numberBetween(1, 4);
         $name = 'KVM ' . $faker->numberBetween(1, 4);
@@ -381,6 +381,85 @@ final class TestFactory
             'content' => "#!/bin/bash\n\n" . $faker->paragraph(),
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
             'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a DNS snapshot data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> DNS snapshot data
+     */
+    public static function dnsSnapshot(array $attributes = []): array
+    {
+        $faker = faker();
+
+        return array_merge([
+            'id' => $faker->randomNumber(6),
+            'reason' => $faker->sentence(),
+            'created_at' => $faker->dateTimeThisYear()->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a DNS snapshot with content data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> DNS snapshot with content data
+     */
+    public static function dnsSnapshotWithContent(array $attributes = []): array
+    {
+        $faker = faker();
+
+        return array_merge([
+            'id' => $faker->randomNumber(6),
+            'reason' => $faker->sentence(),
+            'snapshot' => json_encode(['zone' => 'records']),
+            'created_at' => $faker->dateTimeThisYear()->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a DNS name record data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> DNS name record data
+     */
+    public static function dnsNameRecord(array $attributes = []): array
+    {
+        $faker = faker();
+
+        return array_merge([
+            'content' => $faker->randomElement([$faker->ipv4(), $faker->domainName() . '.']),
+            'disabled' => $faker->boolean(10),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a DNS name data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> DNS name data
+     */
+    public static function dnsName(array $attributes = []): array
+    {
+        $faker = faker();
+        $recordTypes = ['A', 'AAAA', 'CNAME', 'MX', 'TXT', 'NS'];
+
+        $records = [];
+        for ($i = 0; $i < $faker->numberBetween(1, 3); $i++) {
+            $records[] = self::dnsNameRecord();
+        }
+
+        return array_merge([
+            'name' => $faker->randomElement(['@', $faker->word(), $faker->word() . '.' . $faker->word()]),
+            'records' => $records,
+            'ttl' => $faker->randomElement([300, 1800, 3600, 14400, 86400]),
+            'type' => $faker->randomElement($recordTypes),
         ], $attributes);
     }
 }

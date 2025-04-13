@@ -72,7 +72,7 @@ test('can list actions with pagination', function (): void {
 
     $resource = new Action($client);
 
-    $response = $resource->list($virtualMachineId, ['page' => $page]);
+    $response = $resource->list($virtualMachineId, ['page' => (string)$page]);
 
     expect($response)->toBeInstanceOf(PaginatedResponse::class)
         ->and($response->getCurrentPage())->toBe($page)

@@ -5,10 +5,8 @@ namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;
 use DerrickOb\HostingerApi\Enums\PaymentMethodType;
 use DerrickOb\HostingerApi\Resources\Billing\PaymentMethod;
-use Faker\Generator;
 
 test('can list payment methods', function (): void {
-    /** @var Generator $faker */
     $faker = faker();
 
     $paymentMethods = [];

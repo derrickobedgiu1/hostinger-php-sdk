@@ -65,6 +65,15 @@ final class ResponseFactory
      */
     public static function createPaginated(string $class, array $response): PaginatedResponse
     {
+        /** @var array{
+         *     data: array<array<string, mixed>>,
+         *     meta?: array{
+         *         current_page: int,
+         *         per_page: int,
+         *         total: int
+         *     }
+         * } $response
+         */
         return new PaginatedResponse($response, $class);
     }
 
@@ -87,6 +96,15 @@ final class ResponseFactory
 
         // If response contains 'data' and 'meta' keys, it's paginated
         if (isset($response['data']) && isset($response['meta'])) {
+            /** @var array{
+             *     data: array<array<string, mixed>>,
+             *     meta?: array{
+             *         current_page: int,
+             *         per_page: int,
+             *         total: int
+             *     }
+             * } $response
+             */
             return self::createPaginated($class, $response);
         }
 

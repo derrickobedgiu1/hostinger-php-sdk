@@ -6,10 +6,8 @@ use DerrickOb\HostingerApi\Data\Billing\Subscription as SubscriptionData;
 use DerrickOb\HostingerApi\Enums\PeriodUnit;
 use DerrickOb\HostingerApi\Enums\SubscriptionStatus;
 use DerrickOb\HostingerApi\Resources\Billing\Subscription;
-use Faker\Generator;
 
 test('can list subscriptions', function (): void {
-    /** @var Generator $faker */
     $faker = faker();
 
     $subscriptions = [];
