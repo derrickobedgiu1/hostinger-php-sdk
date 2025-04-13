@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
-      - name: Run tests
-        run: composer test:unit
+      - name: Run check-all
+        run: composer test

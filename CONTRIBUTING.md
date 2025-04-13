@@ -25,24 +25,27 @@ cd hostinger-php-sdk
 # Install dependencies
 composer install
 
-# Run cs, phpstan, rector & tests
-composer tests
+# Run cs, phpstan, rector & check-all
+composer check-all
 ```
 
 ## Fix Test Errors
 
 ```bash
-# Run all code unit tests
-composer test:unit
+# Run pest
+composer test
 
 # Run static analysis
-composer analyze
+composer stan
 
 # Fix code style issues
 composer cs:fix
 
 # Run rector to apply automatic code fixes
 composer rector:fix
+
+# Run fixer for both cs and rector
+composer fix-all
 ```
 
 ## Adding Support for New API Endpoints
