@@ -9,6 +9,7 @@ parameters:
     ignoreErrors:
         - '#Function faker not found#'
         - '#Function createMockClient not found#'
+        - '#Function createMockHttpClient not found#'
         - '#Access to an undefined property DerrickOb\\HostingerApi\\Data\\Data::\$.*#'
         - '#Unable to resolve the template type TAndValue in call to method Pest\\Expectation<mixed>::and\(\)#'
         - '#Unable to resolve the template type TAndValue in call to method Pest\\Expectation<.*>::and\(\)#'
