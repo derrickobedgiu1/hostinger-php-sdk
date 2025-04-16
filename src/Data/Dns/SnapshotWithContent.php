@@ -19,8 +19,8 @@ final class SnapshotWithContent extends Data
     /** @var string Reason for the snapshot creation. */
     public string $reason;
 
-    /** @var string Contents of the DNS zone. */
-    public string $snapshot;
+    /** @var array<Name> Contents of the DNS zone records at the time of the snapshot. */
+    public array $snapshot;
 
     /** @var DateTimeImmutable Date and time when the snapshot was created. */
     public DateTimeImmutable $created_at;
@@ -29,7 +29,15 @@ final class SnapshotWithContent extends Data
      * @param array{
      *      id: int,
      *      reason: string,
-     *      snapshot: string,
+     *      snapshot: array<array{
+     *          name: string,
+     *          records: array<array{
+     *              content: string,
+     *              disabled?: bool
+     *          }>,
+     *          ttl: int,
+     *          type: string
+     *      }>,
      *      created_at: string
      *  } $data
      *
@@ -39,7 +47,10 @@ final class SnapshotWithContent extends Data
     {
         $this->id = $data['id'];
         $this->reason = $data['reason'];
-        $this->snapshot = $data['snapshot'];
+        $this->snapshot = array_map(
+            fn (array $record): Name => new Name($record),
+            $data['snapshot']
+        );
         $this->created_at = new DateTimeImmutable($data['created_at']);
     }
 }

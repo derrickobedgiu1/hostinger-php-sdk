@@ -2,10 +2,12 @@
 
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 
+use DerrickOb\HostingerApi\Data\Dns\Name;
 use DerrickOb\HostingerApi\Data\Dns\Snapshot as SnapshotData;
 use DerrickOb\HostingerApi\Data\Dns\SnapshotWithContent;
 use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Resources\Dns\Snapshot;
+use DerrickOb\HostingerApi\Tests\TestFactory;
 
 test('can list DNS snapshots', function (): void {
     $faker = faker();
@@ -13,11 +15,7 @@ test('can list DNS snapshots', function (): void {
 
     $snapshots = [];
     for ($i = 0; $i < 3; $i++) {
-        $snapshots[] = [
-            'id' => $faker->randomNumber(6),
-            'reason' => $faker->sentence(),
-            'created_at' => $faker->dateTimeThisYear()->format('Y-m-d\TH:i:s\Z'),
-        ];
+        $snapshots[] = TestFactory::dnsSnapshot();
     }
 
     $client = createMockClient();
@@ -43,12 +41,7 @@ test('can get specific DNS snapshot with content', function (): void {
     $domain = $faker->domainName();
     $snapshotId = $faker->randomNumber(7);
 
-    $snapshot = [
-        'id' => $snapshotId,
-        'reason' => $faker->sentence(),
-        'snapshot' => json_encode(['zone' => 'records']),
-        'created_at' => $faker->dateTimeThisYear()->format('Y-m-d\TH:i:s\Z'),
-    ];
+    $snapshot = TestFactory::dnsSnapshotWithContent(['id' => $snapshotId]);
 
     $client = createMockClient();
     $client->shouldReceive('get')
@@ -62,7 +55,9 @@ test('can get specific DNS snapshot with content', function (): void {
     expect($response)->toBeInstanceOf(SnapshotWithContent::class)
         ->and($response->id)->toBe($snapshotId)
         ->and($response->reason)->toBe($snapshot['reason'])
-        ->and($response->snapshot)->toBe($snapshot['snapshot']);
+        ->and($response->snapshot)->toBeArray()
+        ->and($response->snapshot[0])->toBeInstanceOf(Name::class)
+        ->and($response->snapshot[0]->name)->toBe($snapshot['snapshot'][0]['name']);
 });
 
 test('can restore DNS snapshot', function (): void {
@@ -74,7 +69,7 @@ test('can restore DNS snapshot', function (): void {
 
     $client = createMockClient();
     $client->shouldReceive('post')
-        ->with('/api/dns/v1/snapshots/' . $domain . '/' . $snapshotId)
+        ->with('/api/dns/v1/snapshots/' . $domain . '/' . $snapshotId . '/restore')
         ->once()
         ->andReturn($successResponse);
 

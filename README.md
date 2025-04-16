@@ -219,10 +219,19 @@ $snapshot = $hostinger->dns()->snapshots()->get($domainName, $snapshotId);
 
 $snapshot->id; // 53513053
 $snapshot->reason; // Zone records update request
-$snapshot->snapshot; // {}
 $snapshot->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
 
-$snapshot->toArray(); // ['id' => 53513053, 'reason' => '...', 'snapshot' => '{}', 'created_at' => ...]
+foreach ($snapshot->snapshot as $recordGroup) {
+    $recordGroup->name; // www
+    $recordGroup->type; // A
+    $recordGroup->ttl; // 14400
+    foreach ($recordGroup->records as $recordValue) {
+         $recordValue->content; // mydomain.tld.
+         $recordValue->disabled; // false
+    }
+}
+
+$snapshot->toArray(); // ['id' => 53513053, 'reason' => '...', 'snapshot' => [[...], ...], 'created_at' => ...]
 ```
 
 #### Restore Snapshot
