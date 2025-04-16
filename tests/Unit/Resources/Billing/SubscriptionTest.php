@@ -31,7 +31,6 @@ test('can list subscriptions', function (): void {
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
             'expires_at' => $expiresAt->format('Y-m-d\TH:i:s\Z'),
             'next_billing_at' => $nextBillingAt->format('Y-m-d\TH:i:s\Z'),
-            'canceled_at' => null,
         ];
     }
 

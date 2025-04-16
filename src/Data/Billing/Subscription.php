@@ -45,14 +45,11 @@ final class Subscription extends Data
     /** @var DateTimeImmutable Date and time when the subscription was created. */
     public DateTimeImmutable $created_at;
 
-    /** @var DateTimeImmutable Date and time when the subscription expires. */
-    public DateTimeImmutable $expires_at;
+    /** @var DateTimeImmutable|null Date and time when the subscription expires. */
+    public ?DateTimeImmutable $expires_at;
 
     /** @var DateTimeImmutable|null Date and time of the next billing. */
     public ?DateTimeImmutable $next_billing_at;
-
-    /** @var DateTimeImmutable|null Date and time when the subscription was canceled, if applicable. */
-    public ?DateTimeImmutable $canceled_at;
 
     /**
      * @param array{
@@ -66,9 +63,8 @@ final class Subscription extends Data
      *      renewal_price: int,
      *      auto_renew: bool,
      *      created_at: string,
-     *      expires_at: string,
-     *      next_billing_at?: string,
-     *      canceled_at?: string
+     *      expires_at?: string|null,
+     *      next_billing_at?: string|null
      *  } $data
      *
      * @throws Exception
@@ -85,8 +81,7 @@ final class Subscription extends Data
         $this->renewal_price = $data['renewal_price'];
         $this->auto_renew = $data['auto_renew'];
         $this->created_at = new DateTimeImmutable($data['created_at']);
-        $this->expires_at = new DateTimeImmutable($data['expires_at']);
+        $this->expires_at = isset($data['expires_at']) ? new DateTimeImmutable($data['expires_at']) : null;
         $this->next_billing_at = isset($data['next_billing_at']) ? new DateTimeImmutable($data['next_billing_at']) : null;
-        $this->canceled_at = isset($data['canceled_at']) ? new DateTimeImmutable($data['canceled_at']) : null;
     }
 }
