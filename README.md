@@ -26,6 +26,9 @@ A complete PHP SDK for interacting with the Hostinger API, allowing you to progr
       * [Get Snapshot List](#get-snapshot-list)
     * [Zone](#zone)
       * [Get Records](#get-records)
+      * [Update Zone Records](#update-zone-records)
+      * [Delete Zone Records](#delete-zone-records)
+      * [Validate Zone Records](#validate-zone-records)
       * [Reset Zone Records](#reset-zone-records)
   * [Billing](#billing)
     * [Catalog](#catalog)
@@ -216,10 +219,19 @@ $snapshot = $hostinger->dns()->snapshots()->get($domainName, $snapshotId);
 
 $snapshot->id; // 53513053
 $snapshot->reason; // Zone records update request
-$snapshot->snapshot; // {}
 $snapshot->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
 
-$snapshot->toArray(); // ['id' => 53513053, 'reason' => '...', 'snapshot' => '{}', 'created_at' => ...]
+foreach ($snapshot->snapshot as $recordGroup) {
+    $recordGroup->name; // www
+    $recordGroup->type; // A
+    $recordGroup->ttl; // 14400
+    foreach ($recordGroup->records as $recordValue) {
+         $recordValue->content; // mydomain.tld.
+         $recordValue->disabled; // false
+    }
+}
+
+$snapshot->toArray(); // ['id' => 53513053, 'reason' => '...', 'snapshot' => [[...], ...], 'created_at' => ...]
 ```
 
 #### Restore Snapshot
@@ -276,6 +288,80 @@ foreach ($recordGroups as $group) {
     }
 
     $group->toArray(); // ['name' => 'www', 'records' => [[...], ...], 'ttl' => 14400, 'type' => 'A']
+}
+```
+
+#### Update Zone Records
+
+Updates DNS records for the selected domain. Using overwrite = true (default) replaces records; otherwise, appends or updates TTLs.
+
+```php
+$domainName = "mydomain.tld";
+$data = [
+    'overwrite' => true, // Optional
+    'zone' => [
+        [
+            'name' => 'www',
+            'records' => [['content' => '192.0.2.1']],
+            'ttl' => 3600, // Optional
+            'type' => 'A',
+        ],
+        [
+            'name' => 'www',
+            'records' => [['content' => 'example.com.']],
+            'type' => 'CNAME',
+        ],
+    ],
+];
+
+$response = $hostinger->dns()->zones()->update($domainName, $data);
+
+$response->message; // Request accepted
+$response->toArray(); // ['message' => 'Request accepted']
+```
+
+#### Delete Zone Records
+
+Deletes specific DNS records based on name and type filters.
+
+```php
+$domainName = "mydomain.tld";
+$data = [
+    'filters' => [
+        ['name' => '@', 'type' => 'A']
+    ],
+];
+
+$response = $hostinger->dns()->zones()->delete($domainName, $data);
+
+$response->message; // Request accepted
+$response->toArray(); // ['message' => 'Request accepted']
+```
+
+#### Validate Zone Records
+
+Validates DNS records before attempting an update. Throws a ValidationException if invalid.
+
+```php
+$domainName = "mydomain.tld";
+$data = [
+    'zone' => [
+        [
+            'name' => 'valid',
+            'records' => [['content' => '192.0.2.10']],
+            'type' => 'A',
+        ]
+    ],
+];
+
+try {
+    $response = $hostinger->dns()->zones()->validate($domainName, $data);
+    $response->message;
+    $response->toArray(); // ['message' => '...']
+} catch (\DerrickOb\HostingerApi\Exceptions\ValidationException $e) {
+    // Handle validation failure
+    echo "Validation failed: " . $e->getMessage();
+    print_r($e->getErrors());
 }
 ```
 
@@ -479,7 +565,6 @@ foreach ($subscriptions as $subscription) {
     $subscription->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
     $subscription->expires_at->format('Y-m-d H:i:s'); // 2025-03-27 11:54:22
     $subscription->next_billing_at ? $subscription->next_billing_at->format('Y-m-d H:i:s') : null; // 2025-02-28 11:54:22
-    $subscription->canceled_at ? $subscription->canceled_at->format('Y-m-d H:i:s') : null; // 2025-02-28 11:54:22
 
     $subscription->toArray(); // ['id' => '...', 'name' => 'KVM 1', 'status' => 'active', 'auto_renew' => true, ...]
 }

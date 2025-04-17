@@ -77,7 +77,7 @@ final class PaginatedResponse implements \JsonSerializable
      */
     public function getCurrentPage(): int
     {
-        return $this->meta['current_page'] ?? 1;
+        return $this->meta['current_page'];
     }
 
     /**
@@ -87,7 +87,7 @@ final class PaginatedResponse implements \JsonSerializable
      */
     public function getPerPage(): int
     {
-        return $this->meta['per_page'] ?? count($this->data);
+        return $this->meta['per_page'];
     }
 
     /**
@@ -97,7 +97,7 @@ final class PaginatedResponse implements \JsonSerializable
      */
     public function getTotal(): int
     {
-        return $this->meta['total'] ?? count($this->data);
+        return $this->meta['total'];
     }
 
     /**

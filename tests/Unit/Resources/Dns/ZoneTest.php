@@ -5,26 +5,15 @@ namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 use DerrickOb\HostingerApi\Data\Dns\Name;
 use DerrickOb\HostingerApi\Data\SuccessResponse;
 use DerrickOb\HostingerApi\Resources\Dns\Zone;
+use DerrickOb\HostingerApi\Tests\TestFactory;
 
 test('can get DNS zone records', function (): void {
     $faker = faker();
     $domain = $faker->domainName();
 
     $records = [];
-    $recordTypes = ['A', 'AAAA', 'CNAME', 'MX', 'TXT', 'NS'];
-
     for ($i = 0; $i < 4; $i++) {
-        $records[] = [
-            'name' => $i === 0 ? '@' : $faker->word(),
-            'records' => [
-                [
-                    'content' => $faker->ipv4(),
-                    'disabled' => false,
-                ],
-            ],
-            'ttl' => 14400,
-            'type' => $recordTypes[array_rand($recordTypes)],
-        ];
+        $records[] = TestFactory::dnsName();
     }
 
     $client = createMockClient();
@@ -46,6 +35,93 @@ test('can get DNS zone records', function (): void {
         ->and($response[0]->type)->toBe($records[0]['type'])
         ->and($response[0]->records)->toBeArray()
         ->and($response[0]->records[0]->content)->toBe($records[0]['records'][0]['content']);
+});
+
+test('can update DNS zone records', function (): void {
+    $faker = faker();
+    $domain = $faker->domainName();
+
+    $data = [
+        'overwrite' => true,
+        'zone' => [
+            [
+                'name' => '@',
+                'records' => [['content' => $faker->ipv4()]],
+                'ttl' => 3600,
+                'type' => 'A',
+            ],
+        ],
+    ];
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('put')
+        ->with('/api/dns/v1/zones/' . $domain, $data)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Zone($client);
+    $response = $resource->update($domain, $data);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
+});
+
+test('can delete DNS zone records', function (): void {
+    $faker = faker();
+    $domain = $faker->domainName();
+
+    $data = [
+        'filters' => [
+            ['name' => '@', 'type' => 'A'],
+            ['name' => 'www', 'type' => 'CNAME'],
+        ],
+    ];
+
+    $successResponse = ['message' => 'Request accepted'];
+
+    $client = createMockClient();
+    $client->shouldReceive('delete')
+        ->with('/api/dns/v1/zones/' . $domain, $data)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Zone($client);
+    $response = $resource->delete($domain, $data);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
+});
+
+test('can validate DNS zone records', function (): void {
+    $faker = faker();
+    $domain = $faker->domainName();
+
+    $data = [
+        'overwrite' => true,
+        'zone' => [
+            [
+                'name' => 'mail',
+                'records' => [['content' => $faker->ipv4()]],
+                'type' => 'A',
+            ],
+        ],
+    ];
+
+    $successResponse = ['message' => 'Validation successful']; // Assuming a success message
+
+    $client = createMockClient();
+    $client->shouldReceive('post')
+        ->with('/api/dns/v1/zones/' . $domain . '/validate', $data)
+        ->once()
+        ->andReturn($successResponse);
+
+    $resource = new Zone($client);
+    $response = $resource->validate($domain, $data);
+
+    expect($response)->toBeInstanceOf(SuccessResponse::class)
+        ->and($response->message)->toBe($successResponse['message']);
 });
 
 test('can reset DNS zone', function (): void {

@@ -82,7 +82,7 @@ final class Snapshot extends Resource
     {
         $version = $this->getApiVersion();
 
-        $response = $this->client->post(sprintf('/api/dns/%s/snapshots/%s/%d', $version, $domain, $snapshotId));
+        $response = $this->client->post(sprintf('/api/dns/%s/snapshots/%s/%d/restore', $version, $domain, $snapshotId));
 
         /** @var SuccessResponse */
         return $this->transform(SuccessResponse::class, $response);

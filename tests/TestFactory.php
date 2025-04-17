@@ -306,8 +306,6 @@ final class TestFactory
     {
         $faker = faker();
         $createdAt = $faker->dateTimeThisYear();
-        $expiresAt = (clone $createdAt)->modify('+1 year');
-        $nextBillingAt = (clone $createdAt)->modify('+1 month');
 
         return array_merge([
             'id' => $faker->regexify('[A-Za-z0-9]{15}'),
@@ -320,9 +318,8 @@ final class TestFactory
             'renewal_price' => $faker->numberBetween(1000, 5000),
             'auto_renew' => $faker->boolean(),
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
-            'expires_at' => $expiresAt->format('Y-m-d\TH:i:s\Z'),
-            'next_billing_at' => $nextBillingAt->format('Y-m-d\TH:i:s\Z'),
-            'canceled_at' => null,
+            'expires_at' => $faker->optional(0.9)?->dateTimeBetween($createdAt, '+2 years')->format('Y-m-d\TH:i:s\Z'),
+            'next_billing_at' => $faker->optional(0.8)?->dateTimeBetween($createdAt, '+1 year')->format('Y-m-d\TH:i:s\Z'),
         ], $attributes);
     }
 
@@ -413,10 +410,15 @@ final class TestFactory
     {
         $faker = faker();
 
+        $records = [];
+        for ($i = 0; $i < $faker->numberBetween(1, 5); $i++) {
+            $records[] = self::dnsName();
+        }
+
         return array_merge([
             'id' => $faker->randomNumber(6),
             'reason' => $faker->sentence(),
-            'snapshot' => json_encode(['zone' => 'records']),
+            'snapshot' => $records,
             'created_at' => $faker->dateTimeThisYear()->format('Y-m-d\TH:i:s\Z'),
         ], $attributes);
     }
