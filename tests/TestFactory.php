@@ -157,7 +157,7 @@ final class TestFactory
         return array_merge([
             'id' => $faker->randomNumber(5),
             'name' => implode(' ', (array) $faker->words(3, true)) . ' Firewall',
-            'synced' => $faker->boolean(80),
+            'is_synced' => $faker->boolean(80),
             'rules' => $rules,
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
             'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
@@ -316,7 +316,7 @@ final class TestFactory
             'currency_code' => 'USD',
             'total_price' => $faker->numberBetween(1000, 5000),
             'renewal_price' => $faker->numberBetween(1000, 5000),
-            'auto_renew' => $faker->boolean(),
+            'is_auto_renewed' => $faker->boolean(),
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
             'expires_at' => $faker->optional(0.9)?->dateTimeBetween($createdAt, '+2 years')->format('Y-m-d\TH:i:s\Z'),
             'next_billing_at' => $faker->optional(0.8)?->dateTimeBetween($createdAt, '+1 year')->format('Y-m-d\TH:i:s\Z'),
@@ -436,7 +436,7 @@ final class TestFactory
 
         return array_merge([
             'content' => $faker->randomElement([$faker->ipv4(), $faker->domainName() . '.']),
-            'disabled' => $faker->boolean(10),
+            'is_disabled' => $faker->boolean(10),
         ], $attributes);
     }
 

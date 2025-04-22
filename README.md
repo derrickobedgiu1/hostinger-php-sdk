@@ -17,6 +17,8 @@ A complete PHP SDK for interacting with the Hostinger API, allowing you to progr
     * [Initialize the Client](#initialize-the-client)
     * [Handle Errors](#handle-errors)
   * [Domains](#domains)
+    * [Availability](#availability)
+      * [Check Domain Availability](#check-domain-availability)
     * [Portfolio](#portfolio)
       * [Get Domain List](#get-domain-list)
   * [DNS](#dns)
@@ -183,6 +185,31 @@ try {
 
 ## Domains
 
+### Availability
+
+#### Check Domain Availability
+
+Checks the availability of a domain name across multiple TLDs.
+
+```php
+$data = [
+    'domain' => 'mydomain',
+    'tlds' => ['com', 'net', 'org'],
+    'with_alternatives' => false, // optional
+];
+
+$results = $hostinger->domains()->availability()->check($data);
+
+foreach ($results as $result) {
+    $result->domain; // mydomain.tld
+    $result->is_available; // true
+    $result->is_alternative; // false
+    $result->restriction; // null
+
+    $result->toArray(); // ['domain' => 'mydomain.com', 'is_available' => true, ...]
+}
+```
+
 ### Portfolio
 
 #### Get Domain List
@@ -227,7 +254,7 @@ foreach ($snapshot->snapshot as $recordGroup) {
     $recordGroup->ttl; // 14400
     foreach ($recordGroup->records as $recordValue) {
          $recordValue->content; // mydomain.tld.
-         $recordValue->disabled; // false
+         $recordValue->is_disabled; // false
     }
 }
 
@@ -282,9 +309,9 @@ foreach ($recordGroups as $group) {
 
     foreach ($group->records as $recordValue) {
         $recordValue->content; // mydomain.tld
-        $recordValue->disabled; // false
+        $recordValue->is_disabled; // false
 
-        $recordValue->toArray(); // ['content' => '...', 'disabled' => false]
+        $recordValue->toArray(); // ['content' => '...', 'is_disabled' => false]
     }
 
     $group->toArray(); // ['name' => 'www', 'records' => [[...], ...], 'ttl' => 14400, 'type' => 'A']
@@ -561,12 +588,12 @@ foreach ($subscriptions as $subscription) {
     $subscription->currency_code; // USD
     $subscription->total_price; // 1799
     $subscription->renewal_price; // 1799
-    $subscription->auto_renew; // true
+    $subscription->is_auto_renewed; // true
     $subscription->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
     $subscription->expires_at->format('Y-m-d H:i:s'); // 2025-03-27 11:54:22
     $subscription->next_billing_at ? $subscription->next_billing_at->format('Y-m-d H:i:s') : null; // 2025-02-28 11:54:22
 
-    $subscription->toArray(); // ['id' => '...', 'name' => 'KVM 1', 'status' => 'active', 'auto_renew' => true, ...]
+    $subscription->toArray(); // ['id' => '...', 'name' => 'KVM 1', 'status' => 'active', 'is_auto_renewed' => true, ...]
 }
 ```
 
@@ -780,7 +807,7 @@ $firewall = $hostinger->vps()->firewalls()->get($firewallId);
 
 $firewall->id; // 65224
 $firewall->name; // HTTP and SSH only
-$firewall->synced; // false
+$firewall->is_synced; // false
 $firewall->created_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
 $firewall->updated_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
 
@@ -795,7 +822,7 @@ foreach ($firewall->rules as $rule) {
     $rule->toArray(); // ['id' => 24541, 'action' => 'accept', 'protocol' => 'TCP', ...]
 }
 
-$firewall->toArray(); // ['id' => 65224, 'name' => '...', 'synced' => ..., 'rules' => [...], ...]
+$firewall->toArray(); // ['id' => 65224, 'name' => '...', 'is_synced' => ..., 'rules' => [...], ...]
 ```
 
 #### Delete Firewall
@@ -826,7 +853,7 @@ $firewalls->getTotal(); // 100
 foreach ($firewalls->getData() as $firewall) {
     $firewall->id; // 65224
     $firewall->name; // HTTP and SSH only
-    $firewall->synced; // false
+    $firewall->is_synced; // false
     $firewall->created_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
     $firewall->updated_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
 
@@ -841,7 +868,7 @@ foreach ($firewalls->getData() as $firewall) {
         $rule->toArray(); // ['id' => 24541, 'action' => 'accept', 'protocol' => 'TCP', ...]
     }
 
-    $firewall->toArray(); // ['id' => 65224, 'name' => '...', 'synced' => false, 'rules' => [[...], ...], ...]
+    $firewall->toArray(); // ['id' => 65224, 'name' => '...', 'is_synced' => false, 'rules' => [[...], ...], ...]
 }
 
 $firewalls->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page' => 1, ...]]
@@ -860,12 +887,12 @@ $firewall = $hostinger->vps()->firewalls()->create($data);
 
 $firewall->id; // 65224
 $firewall->name; // HTTP and SSH only
-$firewall->synced; // false
+$firewall->is_synced; // false
 $firewall->rules; // empty array []
 $firewall->created_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
 $firewall->updated_at->format('Y-m-d H:i:s'); // 2021-09-01 12:00:00
 
-$firewall->toArray(); // ['id' => 65224, 'name' => 'HTTP and SSH only', 'synced' => false, 'rules' => [], ...]
+$firewall->toArray(); // ['id' => 65224, 'name' => 'HTTP and SSH only', 'is_synced' => false, 'rules' => [], ...]
 ```
 
 #### Update Firewall Rule

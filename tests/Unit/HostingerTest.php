@@ -1,5 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit;
+
+use DerrickOb\HostingerApi\ClientInterface;
 use DerrickOb\HostingerApi\Facades\BillingFacade;
 use DerrickOb\HostingerApi\Facades\DnsFacade;
 use DerrickOb\HostingerApi\Facades\DomainFacade;
@@ -29,4 +34,9 @@ test('can access dns facade', function (): void {
 test('can access vps facade', function (): void {
     $hostinger = new Hostinger('test-token');
     expect($hostinger->vps())->toBeInstanceOf(VpsFacade::class);
+});
+
+test('can get the client instance', function (): void {
+    $hostinger = new Hostinger('test-token');
+    expect($hostinger->getClient())->toBeInstanceOf(ClientInterface::class);
 });

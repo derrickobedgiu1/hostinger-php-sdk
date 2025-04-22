@@ -20,7 +20,7 @@ final class Firewall extends Data
     public string $name;
 
     /** @var bool Whether the firewall is in sync with all virtual machines using it. */
-    public bool $synced;
+    public bool $is_synced;
 
     /** @var array<int, FirewallRule> List of rules defined in this firewall. */
     public array $rules;
@@ -35,7 +35,7 @@ final class Firewall extends Data
      * @param array{
      *      id: int,
      *      name: string,
-     *      synced: bool,
+     *      is_synced: bool,
      *      rules: array<int, array{
      *          id: int,
      *          action: string,
@@ -54,7 +54,7 @@ final class Firewall extends Data
     {
         $this->id = $data['id'];
         $this->name = $data['name'];
-        $this->synced = $data['synced'];
+        $this->is_synced = $data['is_synced'];
         $this->rules = array_map(
             fn (array $ruleData): FirewallRule => new FirewallRule($ruleData),
             $data['rules']

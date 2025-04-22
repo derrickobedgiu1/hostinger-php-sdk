@@ -15,17 +15,17 @@ final class NameRecord extends Data
     public string $content;
 
     /** @var bool Flag to mark name record as disabled. */
-    public bool $disabled;
+    public bool $is_disabled;
 
     /**
      * @param array{
      *      content: string,
-     *      disabled?: bool
+     *      is_disabled?: bool
      *  } $data
      */
     public function __construct(array $data)
     {
         $this->content = $data['content'];
-        $this->disabled = $data['disabled'] ?? false;
+        $this->is_disabled = $data['is_disabled'] ?? false;
     }
 }

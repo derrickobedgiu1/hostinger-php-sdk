@@ -49,6 +49,7 @@
     },
     "scripts": {
         "test": "pest",
+        "test:coverage": "XDEBUG_MODE=coverage pest --coverage",
         "stan": "phpstan analyze",
         "cs": "php-cs-fixer fix --allow-risky=yes --dry-run --diff",
         "rector": "rector process --dry-run",

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Domain;
 
 use DerrickOb\HostingerApi\Data\Domain\Domain;

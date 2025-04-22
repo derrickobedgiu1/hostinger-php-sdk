@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
+use DerrickOb\HostingerApi\Data\Vps\IpAddress;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
@@ -40,8 +43,9 @@ test('can list virtual machines', function (): void {
         ->and($response[1]->hostname)->toBe($virtualMachines[1]['hostname']);
 });
 
-test('can get virtual machine', function (): void {
-    $virtualMachine = TestFactory::virtualMachine();
+test('can get virtual machine including ipv6', function (): void {
+    $ipv6 = [TestFactory::ipAddress(['address' => faker()->ipv6()])];
+    $virtualMachine = TestFactory::virtualMachine(['ipv6' => $ipv6]);
     $virtualMachineId = $virtualMachine['id'];
 
     $client = createMockClient();
@@ -57,7 +61,12 @@ test('can get virtual machine', function (): void {
         ->and($response->id)->toBe($virtualMachineId)
         ->and($response->hostname)->toBe($virtualMachine['hostname'])
         ->and($response->state)->toBeInstanceOf(VirtualMachineState::class)
-        ->and($response->actions_lock)->toBeInstanceOf(ActionsLock::class);
+        ->and($response->actions_lock)->toBeInstanceOf(ActionsLock::class)
+        ->and($response->ipv4)->toBeArray()->toHaveCount(1)
+        ->and($response->ipv4[0] ?? null)->toBeInstanceOf(IpAddress::class)
+        ->and($response->ipv6 ?? null)->toBeArray()->toHaveCount(1)
+        ->and($response->ipv6[0] ?? null)->toBeInstanceOf(IpAddress::class)
+        ->and($response->ipv6[0]->address ?? null)->toBe($ipv6[0]['address']);
 });
 
 test('can start virtual machine', function (): void {
@@ -387,4 +396,25 @@ test('can get attached public keys', function (): void {
         ->and($result->getData()[0]->id)->toBe($publicKeys[0]['id'])
         ->and($result->getData()[0]->name)->toBe($publicKeys[0]['name'])
         ->and($result->getData()[0]->key)->toBe($publicKeys[0]['key']);
+});
+
+test('can set panel password', function (): void {
+    $virtualMachineId = faker()->randomNumber(5);
+    $password = faker()->password(8, 16);
+    $action = TestFactory::action(['name' => 'set_panel_password']);
+
+    $client = createMockClient();
+    $client->shouldReceive('put')
+        ->with(
+            sprintf('/api/vps/v1/virtual-machines/%d/panel-password', $virtualMachineId),
+            ['password' => $password]
+        )
+        ->once()
+        ->andReturn($action);
+
+    $resource = new VirtualMachine($client);
+    $response = $resource->setPanelPassword($virtualMachineId, $password);
+
+    expect($response)->toBeInstanceOf(Action::class)
+        ->and($response->id)->toBe($action['id']);
 });

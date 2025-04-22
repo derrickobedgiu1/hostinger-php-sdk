@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit\Exceptions;
+
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 
 test('can get the correlation ID', function (): void {

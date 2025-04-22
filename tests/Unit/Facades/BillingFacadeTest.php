@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit\Facades;
+
 use DerrickOb\HostingerApi\Facades\BillingFacade;
 use DerrickOb\HostingerApi\Resources\Billing\Catalog;
 use DerrickOb\HostingerApi\Resources\Billing\Order;
