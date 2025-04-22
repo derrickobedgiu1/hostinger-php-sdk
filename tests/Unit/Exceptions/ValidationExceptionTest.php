@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit\Exceptions;
+
 use DerrickOb\HostingerApi\Exceptions\ValidationException;
 
 test('can get validation errors', function (): void {

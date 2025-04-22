@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\Vps\DataCenter as DataCenterData;

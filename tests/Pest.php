@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use DerrickOb\HostingerApi\ClientInterface;
 use DerrickOb\HostingerApi\HttpClient\HttpClientInterface;
 use Faker\Factory;

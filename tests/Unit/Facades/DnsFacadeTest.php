@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit\Facades;
+
 use DerrickOb\HostingerApi\Facades\DnsFacade;
 use DerrickOb\HostingerApi\Resources\Dns\Snapshot;
 use DerrickOb\HostingerApi\Resources\Dns\Zone;

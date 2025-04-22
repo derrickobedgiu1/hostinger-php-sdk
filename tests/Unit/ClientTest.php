@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+namespace DerrickOb\HostingerApi\Tests\Unit;
+
 use DerrickOb\HostingerApi\Client;
 use DerrickOb\HostingerApi\Config;
 

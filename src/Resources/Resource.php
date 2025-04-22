@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Resources;
 
 use DerrickOb\HostingerApi\ClientInterface;

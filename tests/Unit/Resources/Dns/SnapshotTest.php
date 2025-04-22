@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Name;
@@ -57,7 +59,8 @@ test('can get specific DNS snapshot with content', function (): void {
         ->and($response->reason)->toBe($snapshot['reason'])
         ->and($response->snapshot)->toBeArray()
         ->and($response->snapshot[0])->toBeInstanceOf(Name::class)
-        ->and($response->snapshot[0]->name)->toBe($snapshot['snapshot'][0]['name']);
+        ->and($response->snapshot[0]->name)->toBe($snapshot['snapshot'][0]['name'])
+        ->and($response->snapshot[0]->records[0]->is_disabled)->toBe($snapshot['snapshot'][0]['records'][0]['is_disabled']);
 });
 
 test('can restore DNS snapshot', function (): void {

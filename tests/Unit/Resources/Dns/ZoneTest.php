@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Dns;
 
 use DerrickOb\HostingerApi\Data\Dns\Name;
@@ -34,7 +36,8 @@ test('can get DNS zone records', function (): void {
         ->and($response[0]->ttl)->toBe($records[0]['ttl'])
         ->and($response[0]->type)->toBe($records[0]['type'])
         ->and($response[0]->records)->toBeArray()
-        ->and($response[0]->records[0]->content)->toBe($records[0]['records'][0]['content']);
+        ->and($response[0]->records[0]->content)->toBe($records[0]['records'][0]['content'])
+        ->and($response[0]->records[0]->is_disabled)->toBe($records[0]['records'][0]['is_disabled']);
 });
 
 test('can update DNS zone records', function (): void {

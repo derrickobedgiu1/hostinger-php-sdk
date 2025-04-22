@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\Subscription as SubscriptionData;
@@ -27,7 +29,7 @@ test('can list subscriptions', function (): void {
             'currency_code' => 'USD',
             'total_price' => $faker->numberBetween(1000, 5000),
             'renewal_price' => $faker->numberBetween(1000, 5000),
-            'auto_renew' => $faker->boolean(),
+            'is_auto_renewed' => $faker->boolean(),
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
             'expires_at' => $expiresAt->format('Y-m-d\TH:i:s\Z'),
             'next_billing_at' => $nextBillingAt->format('Y-m-d\TH:i:s\Z'),
@@ -52,6 +54,7 @@ test('can list subscriptions', function (): void {
         ->and($response[0]->name)->toBe($subscriptions[0]['name'])
         ->and($response[0]->status)->toBe(SubscriptionStatus::ACTIVE)
         ->and($response[0]->billing_period)->toBe($subscriptions[0]['billing_period'])
+        ->and($response[0]->is_auto_renewed)->toBe($subscriptions[0]['is_auto_renewed'])
         ->and($response[1]->status)->toBe(SubscriptionStatus::NOT_RENEWING);
 
     $periodUnit = PeriodUnit::from($subscriptions[0]['billing_period_unit']);

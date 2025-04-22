@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Billing;
 
 use DerrickOb\HostingerApi\Data\Billing\PaymentMethod as PaymentMethodData;

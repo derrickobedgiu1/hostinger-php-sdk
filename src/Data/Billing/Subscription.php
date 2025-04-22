@@ -40,7 +40,7 @@ final class Subscription extends Data
     public int $renewal_price;
 
     /** @var bool Whether the subscription will automatically renew. */
-    public bool $auto_renew;
+    public bool $is_auto_renewed;
 
     /** @var DateTimeImmutable Date and time when the subscription was created. */
     public DateTimeImmutable $created_at;
@@ -61,7 +61,7 @@ final class Subscription extends Data
      *      currency_code: string,
      *      total_price: int,
      *      renewal_price: int,
-     *      auto_renew: bool,
+     *      is_auto_renewed: bool,
      *      created_at: string,
      *      expires_at?: string|null,
      *      next_billing_at?: string|null
@@ -79,7 +79,7 @@ final class Subscription extends Data
         $this->currency_code = $data['currency_code'];
         $this->total_price = $data['total_price'];
         $this->renewal_price = $data['renewal_price'];
-        $this->auto_renew = $data['auto_renew'];
+        $this->is_auto_renewed = $data['is_auto_renewed'];
         $this->created_at = new DateTimeImmutable($data['created_at']);
         $this->expires_at = isset($data['expires_at']) ? new DateTimeImmutable($data['expires_at']) : null;
         $this->next_billing_at = isset($data['next_billing_at']) ? new DateTimeImmutable($data['next_billing_at']) : null;

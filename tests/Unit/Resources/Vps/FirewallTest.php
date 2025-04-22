@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
@@ -39,6 +41,7 @@ test('can list firewalls', function (): void {
         ->and($response->getData()[0])->toBeInstanceOf(FirewallData::class)
         ->and($response->getData()[0]->id)->toBe($firewall['id'])
         ->and($response->getData()[0]->name)->toBe($firewall['name'])
+        ->and($response->getData()[0]->is_synced)->toBe($firewall['is_synced'])
         ->and($response->getData()[0]->rules)->toBeArray();
 });
 
@@ -59,6 +62,7 @@ test('can get firewall details', function (): void {
     expect($response)->toBeInstanceOf(FirewallData::class)
         ->and($response->id)->toBe($firewallId)
         ->and($response->name)->toBe($firewall['name'])
+        ->and($response->is_synced)->toBe($firewall['is_synced'])
         ->and($response->rules)->toBeArray();
 
     foreach ($response->rules as $index => $rule) {
@@ -85,7 +89,8 @@ test('can create a firewall', function (): void {
     $response = $resource->create(['name' => $firewallName]);
 
     expect($response)->toBeInstanceOf(FirewallData::class)
-        ->and($response->name)->toBe($firewallName);
+        ->and($response->name)->toBe($firewallName)
+        ->and($response->is_synced)->toBe($firewall['is_synced']);
 });
 
 test('can create a firewall rule', function (): void {
