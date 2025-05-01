@@ -9,4 +9,6 @@ enum DomainStatus: string
     case ACTIVE = 'active';
     case PENDING_SETUP = 'pending_setup';
     case EXPIRED = 'expired';
+    case REQUESTED = 'requested';
+    case PENDING_VERIFICATION = 'pending_verification';
 }

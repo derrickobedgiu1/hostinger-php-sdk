@@ -224,10 +224,53 @@ final class TestFactory
 
         return array_merge([
             'id' => $faker->randomNumber(5),
-            'name' => $faker->domainName(),
+            'domain' => $faker->domainName(),
             'type' => $faker->randomElement(array_column(DomainType::cases(), 'value')),
             'status' => $faker->randomElement(array_column(DomainStatus::cases(), 'value')),
             'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
+            'expires_at' => $expiresAt->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate an extended domain data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> Extended domain data
+     */
+    public static function domainExtended(array $attributes = []): array
+    {
+        $faker = faker();
+        $createdAt = $faker->dateTimeThisYear();
+        $updatedAt = (clone $createdAt)->modify('+' . $faker->numberBetween(1, 30) . ' days');
+        $expiresAt = (clone $createdAt)->modify('+1 year');
+        $registeredAt = (clone $createdAt)->modify('-' . $faker->numberBetween(1, 365) . ' days');
+        $lockExpiresAt = $faker->optional()?->dateTimeBetween($updatedAt, '+60 days')?->format('Y-m-d\TH:i:s\Z');
+
+        return array_merge([
+            'domain' => $faker->domainName(),
+            'status' => $faker->randomElement(array_column(DomainStatus::cases(), 'value')),
+            'message' => $faker->optional(0.2)->sentence(),
+            'is_privacy_protection_allowed' => $faker->boolean(90),
+            'is_privacy_protected' => $faker->boolean(70),
+            'is_lockable' => $faker->boolean(95),
+            'is_locked' => $faker->boolean(60),
+            'name_servers' => [
+                'ns1' => 'ns1.' . $faker->domainName(),
+                'ns2' => 'ns2.' . $faker->domainName(),
+            ],
+            'child_name_servers' => $faker->optional(0.1)->passthrough([]),
+            'domain_contacts' => [
+                'admin_id' => $faker->randomNumber(6),
+                'owner_id' => $faker->randomNumber(6),
+                'billing_id' => $faker->randomNumber(6),
+                'tech_id' => $faker->randomNumber(6),
+            ],
+            'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
+            'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
+            '60_days_lock_expires_at' => $lockExpiresAt,
+            'registered_at' => $registeredAt->format('Y-m-d\TH:i:s\Z'),
             'expires_at' => $expiresAt->format('Y-m-d\TH:i:s\Z'),
         ], $attributes);
     }
@@ -462,6 +505,62 @@ final class TestFactory
             'records' => $records,
             'ttl' => $faker->randomElement([300, 1800, 3600, 14400, 86400]),
             'type' => $faker->randomElement($recordTypes),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a domain forwarding data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> Domain forwarding data
+     */
+    public static function forwarding(array $attributes = []): array
+    {
+        $faker = faker();
+        $createdAt = $faker->dateTimeThisYear();
+        $updatedAt = (clone $createdAt)->modify('+' . $faker->numberBetween(1, 30) . ' days');
+
+        return array_merge([
+            'domain' => $faker->domainName(),
+            'redirect_type' => $faker->randomElement(['301', '302']),
+            'redirect_url' => $faker->url(),
+            'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
+            'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
+        ], $attributes);
+    }
+
+    /**
+     * Generate a WHOIS profile data structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> WHOIS profile data
+     */
+    public static function whoisProfile(array $attributes = []): array
+    {
+        $faker = faker();
+        $createdAt = $faker->dateTimeThisYear();
+        $updatedAt = (clone $createdAt)->modify('+' . $faker->numberBetween(1, 30) . ' days');
+
+        return array_merge([
+            'id' => $faker->randomNumber(6),
+            'tld' => $faker->randomElement(['com', 'net', 'org', 'info']),
+            'country' => $faker->countryCode(),
+            'entity_type' => $faker->randomElement(['individual', 'organization']),
+            'whois_details' => [
+                'first_name' => $faker->firstName(),
+                'last_name' => $faker->lastName(),
+                'email' => $faker->email(),
+                'phone' => $faker->phoneNumber(),
+                'address1' => $faker->streetAddress(),
+                'city' => $faker->city(),
+                'state' => $faker->stateAbbr(),
+                'zip' => $faker->postcode(),
+            ],
+            'tld_details' => $faker->optional(0.3)->passthrough([]),
+            'created_at' => $createdAt->format('Y-m-d\TH:i:s\Z'),
+            'updated_at' => $updatedAt->format('Y-m-d\TH:i:s\Z'),
         ], $attributes);
     }
 }

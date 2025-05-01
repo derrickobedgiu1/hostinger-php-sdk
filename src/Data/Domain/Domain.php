@@ -19,7 +19,7 @@ final class Domain extends Data
     public int $id;
 
     /** @var string|null Domain name, null when not claimed free domain. */
-    public ?string $name;
+    public ?string $domain;
 
     /** @var DomainType The type of the domain, either free or paid. */
     public DomainType $type;
@@ -36,7 +36,7 @@ final class Domain extends Data
     /**
      * @param array{
      *      id: int,
-     *      name?: string|null,
+     *      domain?: string|null,
      *      type: string,
      *      status: string,
      *      created_at: string,
@@ -48,7 +48,7 @@ final class Domain extends Data
     public function __construct(array $data)
     {
         $this->id = $data['id'];
-        $this->name = $data['name'] ?? null;
+        $this->domain = $data['domain'] ?? null;
         $this->type = DomainType::from($data['type']);
         $this->status = DomainStatus::from($data['status']);
         $this->created_at = new DateTimeImmutable($data['created_at']);

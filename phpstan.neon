@@ -13,3 +13,5 @@ parameters:
         - '#Access to an undefined property DerrickOb\\HostingerApi\\Data\\Data::\$.*#'
         - '#Unable to resolve the template type TAndValue in call to method Pest\\Expectation<mixed>::and\(\)#'
         - '#Unable to resolve the template type TAndValue in call to method Pest\\Expectation<.*>::and\(\)#'
+        - '#Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::with\(\).#'
+        - '#Call to an undefined method Pest\\PendingCalls\\TestCall\|Pest\\Support\\HigherOrderTapProxy::throws\(\).#'
