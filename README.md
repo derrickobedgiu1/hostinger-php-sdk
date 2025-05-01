@@ -212,7 +212,7 @@ Access domain availability checks via `$hostinger->domains()->availability()`.
 
 Checks the availability of a domain name across multiple TLDs. Can optionally return alternative suggestions.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-availability/POST/api/domains/v1/availability](https://developers.hostinger.com/#tag/domains-availability/POST/api/domains/v1/availability)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-availability/POST/api/domains/v1/availability)
 
 ```php
 $data = [
@@ -241,7 +241,7 @@ Manage domain forwarding via `$hostinger->domains()->forwarding()`.
 
 Retrieves domain forwarding data.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-forwarding/GET/api/domains/v1/forwarding/{domain}](https://developers.hostinger.com/#tag/domains-forwarding/GET/api/domains/v1/forwarding/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-forwarding/GET/api/domains/v1/forwarding/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -260,7 +260,7 @@ $forwarding->toArray(); // ['domain' => 'mydomain.tld', 'redirect_type' => '301'
 
 Deletes domain forwarding data.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-forwarding/DELETE/api/domains/v1/forwarding/{domain}](https://developers.hostinger.com/#tag/domains-forwarding/DELETE/api/domains/v1/forwarding/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-forwarding/DELETE/api/domains/v1/forwarding/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -274,7 +274,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Creates domain forwarding data.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-forwarding/POST/api/domains/v1/forwarding](https://developers.hostinger.com/#tag/domains-forwarding/POST/api/domains/v1/forwarding)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-forwarding/POST/api/domains/v1/forwarding)
 
 ```php
 $data = [
@@ -302,7 +302,7 @@ Manage your domain portfolio via `$hostinger->domains()->portfolio()`.
 
 Enables the transfer lock for a domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/domain-lock](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/domain-lock)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/domain-lock)
 
 ```php
 $domainName = "mydomain.tld";
@@ -316,7 +316,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Disables the transfer lock for a domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/domain-lock](https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/domain-lock)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/domain-lock)
 
 ```php
 $domainName = "mydomain.tld";
@@ -330,7 +330,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves extended details for a specific domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio/{domain}](https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -359,7 +359,7 @@ $domainDetails->toArray(); // ['domain' => 'mydomain.tld', 'status' => 'active',
 
 Retrieves a list of all domains associated with your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio](https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/GET/api/domains/v1/portfolio)
 
 ```php
 $domains = $hostinger->domains()->portfolio()->list();
@@ -380,7 +380,7 @@ foreach ($domains as $domain) {
 
 Purchases and registers a new domain name. Returns an Order DTO.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/POST/api/domains/v1/portfolio](https://developers.hostinger.com/#tag/domains-portfolio/POST/api/domains/v1/portfolio)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/POST/api/domains/v1/portfolio)
 
 ```php
 $data = [
@@ -427,7 +427,7 @@ $order->toArray(); // ['id' => 2957086, 'subscription_id' => '...', 'status' => 
 
 Enables WHOIS privacy protection for a domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/privacy-protection](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/privacy-protection)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/privacy-protection)
 
 ```php
 $domainName = "mydomain.tld";
@@ -441,7 +441,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Disables WHOIS privacy protection for a domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/privacy-protection](https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/privacy-protection)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/DELETE/api/domains/v1/portfolio/{domain}/privacy-protection)
 
 ```php
 $domainName = "mydomain.tld";
@@ -455,7 +455,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Updates the nameservers for a domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/nameservers](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/nameservers)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/PUT/api/domains/v1/portfolio/{domain}/nameservers)
 
 ```php
 $domainName = "mydomain.tld";
@@ -480,7 +480,7 @@ Manage WHOIS contact profiles via `$hostinger->domains()->whois()`.
 
 Retrieves a list of WHOIS contact profiles. Can be filtered by TLD.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois)
 
 ```php
 // Get all profiles
@@ -507,7 +507,7 @@ foreach ($profiles as $profile) {
 
 Creates a new WHOIS contact profile.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-whois/POST/api/domains/v1/whois](https://developers.hostinger.com/#tag/domains-whois/POST/api/domains/v1/whois)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-whois/POST/api/domains/v1/whois)
 
 ```php
 $data = [
@@ -546,7 +546,7 @@ $newProfile->toArray();
 
 Retrieves details for a specific WHOIS profile.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId}](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId})
 
 ```php
 $whoisId = 746263;
@@ -568,7 +568,7 @@ $profile->toArray();
 
 Deletes a WHOIS contact profile.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-whois/DELETE/api/domains/v1/whois/{whoisId}](https://developers.hostinger.com/#tag/domains-whois/DELETE/api/domains/v1/whois/{whoisId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-whois/DELETE/api/domains/v1/whois/{whoisId})
 
 ```php
 $whoisId = 746263;
@@ -582,7 +582,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a list of domains currently using a specific WHOIS profile.
 
-*Docs*: [https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId}/usage](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId}/usage)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-whois/GET/api/domains/v1/whois/{whoisId}/usage)
 
 ```php
 $whoisId = 746263;
@@ -605,7 +605,7 @@ Manage DNS snapshots via `$hostinger->dns()->snapshots()`.
 
 Retrieves a specific DNS snapshot with its content.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain}/{snapshotId}](https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain}/{snapshotId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain}/{snapshotId})
 
 ```php
 $domainName = "mydomain.tld";
@@ -633,7 +633,7 @@ $snapshot->toArray(); // ['id' => 53513053, 'reason' => '...', 'snapshot' => [[.
 
 Restores a domain's DNS zone to the state captured in a selected snapshot.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-snapshot/POST/api/dns/v1/snapshots/{domain}/{snapshotId}/restore](https://developers.hostinger.com/#tag/dns-snapshot/POST/api/dns/v1/snapshots/{domain}/{snapshotId}/restore)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-snapshot/POST/api/dns/v1/snapshots/{domain}/{snapshotId}/restore)
 
 ```php
 $domainName = "mydomain.tld";
@@ -648,7 +648,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a list of DNS snapshots for a specific domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain}](https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-snapshot/GET/api/dns/v1/snapshots/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -671,7 +671,7 @@ Manage DNS zones and records via `$hostinger->dns()->zones()`.
 
 Retrieves all DNS records for a specific domain.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-zone/GET/api/dns/v1/zones/{domain}](https://developers.hostinger.com/#tag/dns-zone/GET/api/dns/v1/zones/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-zone/GET/api/dns/v1/zones/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -696,7 +696,7 @@ foreach ($recordGroups as $group) {
 
 Updates DNS records for the selected domain. Using `overwrite = true` (default) replaces records; otherwise, appends or updates TTLs.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-zone/PUT/api/dns/v1/zones/{domain}](https://developers.hostinger.com/#tag/dns-zone/PUT/api/dns/v1/zones/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-zone/PUT/api/dns/v1/zones/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -727,7 +727,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Deletes specific DNS records based on name and type filters.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-zone/DELETE/api/dns/v1/zones/{domain}](https://developers.hostinger.com/#tag/dns-zone/DELETE/api/dns/v1/zones/{domain})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-zone/DELETE/api/dns/v1/zones/{domain})
 
 ```php
 $domainName = "mydomain.tld";
@@ -748,7 +748,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Validates DNS records before attempting an update. Throws a `ValidationException` if invalid.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/validate](https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/validate)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/validate)
 
 ```php
 $domainName = "mydomain.tld";
@@ -777,7 +777,7 @@ try {
 
 Resets the DNS zone for a domain to the default Hostinger records.
 
-*Docs*: [https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/reset](https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/reset)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/dns-zone/POST/api/dns/v1/zones/{domain}/reset)
 
 ```php
 $domainName = "mydomain.tld";
@@ -811,7 +811,7 @@ Access the service catalog via `$hostinger->billing()->catalog()`.
 
 Retrieves a list of catalog items available for order. Prices are in cents. Can be filtered.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-catalog/GET/api/billing/v1/catalog](https://developers.hostinger.com/#tag/billing-catalog/GET/api/billing/v1/catalog)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-catalog/GET/api/billing/v1/catalog)
 
 ```php
 // Get all items
@@ -852,7 +852,7 @@ Manage service orders via `$hostinger->billing()->orders()`.
 
 Creates a new service order. Requires a payment method ID and catalog item price IDs. Orders created via API are set for auto-renewal. Prices are in cents.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-orders/POST/api/billing/v1/orders](https://developers.hostinger.com/#tag/billing-orders/POST/api/billing/v1/orders)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-orders/POST/api/billing/v1/orders)
 
 ```php
 $data = [
@@ -901,7 +901,7 @@ Manage payment methods via `$hostinger->billing()->paymentMethods()`.
 
 Sets a specific payment method as the default for your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId}](https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-payment-methods/POST/api/billing/v1/payment-methods/{paymentMethodId})
 
 ```php
 $paymentMethodId = 9693613;
@@ -915,7 +915,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Deletes a payment method from your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId}](https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-payment-methods/DELETE/api/billing/v1/payment-methods/{paymentMethodId})
 
 ```php
 $paymentMethodId = 9693613;
@@ -929,7 +929,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves available payment methods linked to your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-payment-methods/GET/api/billing/v1/payment-methods](https://developers.hostinger.com/#tag/billing-payment-methods/GET/api/billing/v1/payment-methods)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-payment-methods/GET/api/billing/v1/payment-methods)
 
 ```php
 $paymentMethods = $hostinger->billing()->paymentMethods()->list();
@@ -957,7 +957,7 @@ Manage service subscriptions via `$hostinger->billing()->subscriptions()`.
 
 Cancels a subscription and stops further billing.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-subscriptions/DELETE/api/billing/v1/subscriptions/{subscriptionId}](https://developers.hostinger.com/#tag/billing-subscriptions/DELETE/api/billing/v1/subscriptions/{subscriptionId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-subscriptions/DELETE/api/billing/v1/subscriptions/{subscriptionId})
 
 ```php
 $subscriptionId = "Cxy353Uhl1xC54pG6";
@@ -982,7 +982,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves all subscriptions associated with your account. Prices are in cents.
 
-*Docs*: [https://developers.hostinger.com/#tag/billing-subscriptions/GET/api/billing/v1/subscriptions](https://developers.hostinger.com/#tag/billing-subscriptions/GET/api/billing/v1/subscriptions)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/billing-subscriptions/GET/api/billing/v1/subscriptions)
 
 ```php
 $subscriptions = $hostinger->billing()->subscriptions()->list();
@@ -1017,7 +1017,7 @@ View VM action history via `$hostinger->vps()->actions()`.
 
 Retrieves details for a specific action performed on a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions/{actionId}](https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions/{actionId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions/{actionId})
 
 ```php
 $virtualMachineId = 1268054;
@@ -1037,7 +1037,7 @@ $action->toArray(); // ['id' => 8123712, 'name' => 'action_name', 'state' => 'su
 
 Retrieves a paginated list of actions performed on a specific VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions](https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-actions/GET/api/vps/v1/virtual-machines/{virtualMachineId}/actions)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1069,7 +1069,7 @@ Manage VM backups via `$hostinger->vps()->backups()`.
 
 Deletes a specific backup.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}](https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-backups/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId})
 
 ```php
 $virtualMachineId = 1268054;
@@ -1084,7 +1084,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a paginated list of backups for a specific virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups](https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-backups/GET/api/vps/v1/virtual-machines/{virtualMachineId}/backups)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1110,7 +1110,7 @@ $backupsPage->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page' =
 
 Restores a VM to the state of a specific backup. **Warning: Overwrites current VM data!**
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore](https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-backups/POST/api/vps/v1/virtual-machines/{virtualMachineId}/backups/{backupId}/restore)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1134,7 +1134,7 @@ Access data center information via `$hostinger->vps()->dataCenters()`.
 
 Retrieves a list of all available Hostinger data centers where VPS can be deployed.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-data-centers/GET/api/vps/v1/data-centers](https://developers.hostinger.com/#tag/vps-data-centers/GET/api/vps/v1/data-centers)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-data-centers/GET/api/vps/v1/data-centers)
 
 ```php
 $dataCenters = $hostinger->vps()->dataCenters()->list();
@@ -1158,7 +1158,7 @@ Manage reverse DNS (PTR) records via `$hostinger->vps()->ptrRecords()`.
 
 Creates or updates the PTR (reverse DNS) record for a VM's primary IP, pointing to the VM's hostname.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-ptr-records/POST/api/vps/v1/virtual-machines/{virtualMachineId}/ptr](https://developers.hostinger.com/#tag/vps-ptr-records/POST/api/vps/v1/virtual-machines/{virtualMachineId}/ptr)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-ptr-records/POST/api/vps/v1/virtual-machines/{virtualMachineId}/ptr)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1177,7 +1177,7 @@ $action->toArray(); // ['id' => 8123728, 'name' => 'create_ptr_record', 'state' 
 
 Deletes the PTR record for a VM's primary IP.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-ptr-records/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/ptr](https://developers.hostinger.com/#tag/vps-ptr-records/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/ptr)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-ptr-records/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/ptr)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1200,7 +1200,7 @@ Manage network firewalls via `$hostinger->vps()->firewalls()`. Access requires a
 
 Activates a firewall for a specific VM. Only one firewall can be active per VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/activate/{virtualMachineId}](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/activate/{virtualMachineId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/activate/{virtualMachineId})
 
 ```php
 $firewallId = 9449049;
@@ -1220,7 +1220,7 @@ $action->toArray(); // ['id' => 8123715, 'name' => 'activate_firewall', 'state' 
 
 Deactivates the currently active firewall for a specific VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/deactivate/{virtualMachineId}](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/deactivate/{virtualMachineId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/deactivate/{virtualMachineId})
 
 ```php
 $firewallId = 9449049;
@@ -1240,7 +1240,7 @@ $action->toArray(); // ['id' => 8123716, 'name' => 'deactivate_firewall', 'state
 
 Retrieves details for a specific firewall, including its rules.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall/{firewallId}](https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall/{firewallId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall/{firewallId})
 
 ```php
 $firewallId = 9449049;
@@ -1270,7 +1270,7 @@ $firewall->toArray(); // ['id' => 65224, 'name' => '...', 'is_synced' => false, 
 
 Deletes a firewall. Any VMs using it will have the firewall deactivated.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}](https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId})
 
 ```php
 $firewallId = 9449049;
@@ -1284,7 +1284,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a paginated list of all firewalls available in your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall](https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/GET/api/vps/v1/firewall)
 
 ```php
 $firewallsPage = $hostinger->vps()->firewalls()->list(['page' => 1]);
@@ -1322,7 +1322,7 @@ $firewallsPage->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page'
 
 Creates a new, empty firewall group.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall)
 
 ```php
 $data = [
@@ -1345,7 +1345,7 @@ $firewall->toArray(); // ['id' => 65225, 'name' => 'My New Firewall', 'is_synced
 
 Updates an existing rule within a firewall. The firewall becomes unsynced if attached to VMs.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId}](https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/PUT/api/vps/v1/firewall/{firewallId}/rules/{ruleId})
 
 ```php
 $firewallId = 9449049;
@@ -1374,7 +1374,7 @@ $rule->toArray(); // ['id' => 8941182, 'action' => 'accept', 'protocol' => 'UDP'
 
 Deletes a specific rule from a firewall. The firewall becomes unsynced if attached to VMs.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId}](https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/DELETE/api/vps/v1/firewall/{firewallId}/rules/{ruleId})
 
 ```php
 $firewallId = 9449049;
@@ -1389,7 +1389,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Adds a new rule to an existing firewall. The firewall becomes unsynced if attached to VMs.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/rules](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/rules)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/rules)
 
 ```php
 $firewallId = 9449049;
@@ -1417,7 +1417,7 @@ $rule->toArray(); // ['id' => 8941183, 'action' => 'accept', 'protocol' => 'TCP'
 
 Syncs firewall rules to an attached VM if the firewall is marked as unsynced (e.g., after rule changes).
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId}](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-firewall/POST/api/vps/v1/firewall/{firewallId}/sync/{virtualMachineId})
 
 ```php
 $firewallId = 9449049;
@@ -1441,7 +1441,7 @@ Manage the Monarx malware scanner via `$hostinger->vps()->malwareScanner()`.
 
 Retrieves the latest Monarx malware scan metrics for a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-malware-scanner/GET/api/vps/v1/virtual-machines/{virtualMachineId}/monarx](https://developers.hostinger.com/#tag/vps-malware-scanner/GET/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-malware-scanner/GET/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1461,7 +1461,7 @@ $metrics->toArray(); // ['records' => 1, 'malicious' => 2, 'compromised' => 3, .
 
 Installs the Monarx malware scanner on a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-malware-scanner/POST/api/vps/v1/virtual-machines/{virtualMachineId}/monarx](https://developers.hostinger.com/#tag/vps-malware-scanner/POST/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-malware-scanner/POST/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1480,7 +1480,7 @@ $action->toArray(); // ['id' => 8123718, 'name' => 'install_monarx', 'state' => 
 
 Uninstalls the Monarx malware scanner from a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-malware-scanner/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/monarx](https://developers.hostinger.com/#tag/vps-malware-scanner/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-malware-scanner/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/monarx)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1503,7 +1503,7 @@ Access available OS templates via `$hostinger->vps()->templates()`.
 
 Retrieves details for a specific OS template.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates/{templateId}](https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates/{templateId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates/{templateId})
 
 ```php
 $templateId = 2868928;
@@ -1521,7 +1521,7 @@ $template->toArray(); // ['id' => 2868928, 'name' => '...', 'description' => '..
 
 Retrieves a list of available OS templates for installing on virtual machines.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates](https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-os-templates/GET/api/vps/v1/templates)
 
 ```php
 $templates = $hostinger->vps()->templates()->list();
@@ -1544,7 +1544,7 @@ Manage scripts to run after OS installation via `$hostinger->vps()->postInstallS
 
 Retrieves details of a specific post-install script.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts/{postInstallScriptId}](https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts/{postInstallScriptId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts/{postInstallScriptId})
 
 ```php
 $postInstallScriptId = 9568314;
@@ -1563,7 +1563,7 @@ $script->toArray(); // ['id' => 325, 'name' => '...', 'content' => '...', 'creat
 
 Updates the name and/or content of an existing post-install script.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-post-install-scripts/PUT/api/vps/v1/post-install-scripts/{postInstallScriptId}](https://developers.hostinger.com/#tag/vps-post-install-scripts/PUT/api/vps/v1/post-install-scripts/{postInstallScriptId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-post-install-scripts/PUT/api/vps/v1/post-install-scripts/{postInstallScriptId})
 
 ```php
 $postInstallScriptId = 9568314;
@@ -1587,7 +1587,7 @@ $script->toArray(); // ['id' => 9568314, 'name' => 'Updated Setup Script', ...]
 
 Deletes a post-install script from your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-post-install-scripts/DELETE/api/vps/v1/post-install-scripts/{postInstallScriptId}](https://developers.hostinger.com/#tag/vps-post-install-scripts/DELETE/api/vps/v1/post-install-scripts/{postInstallScriptId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-post-install-scripts/DELETE/api/vps/v1/post-install-scripts/{postInstallScriptId})
 
 ```php
 $postInstallScriptId = 9568314;
@@ -1601,7 +1601,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a paginated list of post-install scripts associated with your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts](https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-post-install-scripts/GET/api/vps/v1/post-install-scripts)
 
 ```php
 $scriptsPage = $hostinger->vps()->postInstallScripts()->list(['page' => 1]);
@@ -1628,7 +1628,7 @@ $scriptsPage->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page' =
 
 Creates a new script that can be run after OS installation on a VM. Max size 48KB.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-post-install-scripts/POST/api/vps/v1/post-install-scripts](https://developers.hostinger.com/#tag/vps-post-install-scripts/POST/api/vps/v1/post-install-scripts)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-post-install-scripts/POST/api/vps/v1/post-install-scripts)
 
 ```php
 $data = [
@@ -1654,7 +1654,7 @@ Manage SSH public keys via `$hostinger->vps()->publicKeys()`.
 
 Attaches existing public keys from your account to a specific VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys/attach/{virtualMachineId}](https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys/attach/{virtualMachineId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys/attach/{virtualMachineId})
 
 ```php
 $virtualMachineId = 1268054;
@@ -1677,7 +1677,7 @@ $action->toArray(); // ['id' => 8123720, 'name' => 'attach_public_key', 'state' 
 
 Deletes a public key from your account. This does *not* remove it from VMs it's already attached to.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId}](https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-public-keys/DELETE/api/vps/v1/public-keys/{publicKeyId})
 
 ```php
 $publicKeyId = 6672861;
@@ -1691,7 +1691,7 @@ $response->toArray(); // ['message' => 'Request accepted']
 
 Retrieves a paginated list of SSH public keys associated with your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-public-keys/GET/api/vps/v1/public-keys](https://developers.hostinger.com/#tag/vps-public-keys/GET/api/vps/v1/public-keys)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-public-keys/GET/api/vps/v1/public-keys)
 
 ```php
 $keysPage = $hostinger->vps()->publicKeys()->list(['page' => 1]);
@@ -1716,7 +1716,7 @@ $keysPage->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page' => 1
 
 Adds a new SSH public key to your account, which can then be attached to VMs.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys](https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-public-keys/POST/api/vps/v1/public-keys)
 
 ```php
 $data = [
@@ -1741,7 +1741,7 @@ Manage VM recovery mode via `$hostinger->vps()->recovery()`.
 
 Boots a VM into a temporary recovery environment with the specified root password. The original disk is mounted at `/mnt`.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-recovery/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recovery](https://developers.hostinger.com/#tag/vps-recovery/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recovery)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-recovery/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recovery)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1764,7 +1764,7 @@ $action->toArray(); // ['id' => 8123721, 'name' => 'start_recovery', 'state' => 
 
 Boots the VM back into its normal operating system from recovery mode.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-recovery/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/recovery](https://developers.hostinger.com/#tag/vps-recovery/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/recovery)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-recovery/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/recovery)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1787,7 +1787,7 @@ Manage VM snapshots via `$hostinger->vps()->snapshots()`. Note: Only one snapsho
 
 Retrieves information about the current snapshot for a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-snapshots/GET/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot](https://developers.hostinger.com/#tag/vps-snapshots/GET/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-snapshots/GET/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1804,7 +1804,7 @@ $snapshot->toArray(); // ['id' => 325, 'created_at' => ..., 'expires_at' => ...]
 
 Creates a new snapshot of a VM. **Warning: Overwrites any existing snapshot for this VM!**
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot](https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1823,7 +1823,7 @@ $action->toArray(); // ['id' => 8123732, 'name' => 'create_snapshot', 'state' =>
 
 Deletes the existing snapshot for a VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-snapshots/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot](https://developers.hostinger.com/#tag/vps-snapshots/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-snapshots/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1842,7 +1842,7 @@ $action->toArray(); // ['id' => 8123733, 'name' => 'delete_snapshot', 'state' =>
 
 Restores a VM to the state of its existing snapshot. **Warning: Overwrites current VM data!**
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot/restore](https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot/restore)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-snapshots/POST/api/vps/v1/virtual-machines/{virtualMachineId}/snapshot/restore)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1865,7 +1865,7 @@ Manage core VM operations via `$hostinger->vps()->virtualMachines()`.
 
 Retrieves a paginated list of SSH public keys attached to a specific virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/public-keys](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/public-keys)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/public-keys)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1891,7 +1891,7 @@ $keysPage->toArray(); // ['data' => [[...], ...], 'meta' => ['current_page' => 1
 
 Sets the hostname for a virtual machine. Does not automatically update PTR record.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/hostname](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/hostname)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/hostname)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1911,7 +1911,7 @@ $action->toArray(); // ['id' => 8123723, 'name' => 'set_hostname', 'state' => 's
 
 Resets the hostname and PTR record to the default value (e.g., srvXXXXX.hstgr.cloud).
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/hostname](https://developers.hostinger.com/#tag/vps-virtual-machine/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/hostname)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/DELETE/api/vps/v1/virtual-machines/{virtualMachineId}/hostname)
 
 ```php
 $virtualMachineId = 1268054;
@@ -1930,7 +1930,7 @@ $action->toArray(); // ['id' => 8123724, 'name' => 'reset_hostname', 'state' => 
 
 Retrieves detailed information for a specific virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId})
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId})
 
 ```php
 $virtualMachineId = 1268054;
@@ -1982,7 +1982,7 @@ $vm->toArray(); // ['id' => 17923, 'firewall_group_id' => null, 'hostname' => '.
 
 Retrieves a list of all virtual machines in your account.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines)
 
 ```php
 $vms = $hostinger->vps()->virtualMachines()->list();
@@ -2035,7 +2035,7 @@ foreach ($vms as $vm) {
 
 Retrieves historical performance metrics (CPU, RAM, Disk, Network, Uptime) for a VM within a specified time range.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/GET/api/vps/v1/virtual-machines/{virtualMachineId}/metrics)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2081,7 +2081,7 @@ $metrics->toArray(); // ['cpu_usage' => [...], 'ram_usage' => [...], ...]
 
 Sets the DNS resolvers used by the virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/nameservers](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/nameservers)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/nameservers)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2104,7 +2104,7 @@ $action->toArray(); // ['id' => 8123725, 'name' => 'set_nameservers', 'state' =>
 
 Sets the password for the control panel (if applicable to the OS template). Requires a strong password.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/panel-password](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/panel-password)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/panel-password)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2124,7 +2124,7 @@ $action->toArray(); // ['id' => 8123726, 'name' => 'set_panel_password', 'state'
 
 Reinstalls the OS on a virtual machine. **Warning: All data will be lost! Snapshots will be deleted.** Requires a strong password if provided.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recreate](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recreate)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/recreate)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2149,7 +2149,7 @@ $action->toArray(); // ['id' => 8123727, 'name' => 'recreate', 'state' => 'succe
 
 Restarts a virtual machine (equivalent to stop then start). Starts a stopped VM.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/restart](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/restart)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/restart)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2168,7 +2168,7 @@ $action->toArray(); // ['id' => 8123712, 'name' => 'restart', 'state' => 'succes
 
 Sets the root password for the virtual machine. Requires a strong password.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/root-password](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/root-password)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/PUT/api/vps/v1/virtual-machines/{virtualMachineId}/root-password)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2188,7 +2188,7 @@ $action->toArray(); // ['id' => 8123728, 'name' => 'set_root_password', 'state' 
 
 Sets up a newly purchased VPS (in `initial` state). Requires OS template and data center.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/setup](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/setup)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/setup)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2256,7 +2256,7 @@ $vm->toArray(); // ['id' => 1268054, 'firewall_group_id' => null, 'hostname' => 
 
 Starts a stopped virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/start](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/start)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/start)
 
 ```php
 $virtualMachineId = 1268054;
@@ -2275,7 +2275,7 @@ $action->toArray(); // ['id' => 8123729, 'name' => 'start', 'state' => 'success'
 
 Stops a running virtual machine.
 
-*Docs*: [https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/stop](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/stop)
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines/{virtualMachineId}/stop)
 
 ```php
 $virtualMachineId = 1268054;
