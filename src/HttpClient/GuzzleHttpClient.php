@@ -22,11 +22,12 @@ final class GuzzleHttpClient implements HttpClientInterface
     private readonly GuzzleClient $client;
 
     /**
-     * @param Config $config SDK configuration
+     * @param Config            $config SDK configuration
+     * @param GuzzleClient|null $client Guzzle client instance
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, ?GuzzleClient $client = null)
     {
-        $this->client = new GuzzleClient([
+        $this->client = $client ?? new GuzzleClient([
             'base_uri' => $config->getBaseUrl(),
             'timeout' => $config->getTimeout(),
             'headers' => [
