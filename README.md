@@ -117,6 +117,7 @@ A complete PHP SDK for interacting with the Hostinger API, allowing you to progr
       * [Reset Hostname](#reset-hostname)
       * [Get Virtual Machine](#get-virtual-machine)
       * [Get Virtual Machine List](#get-virtual-machine-list)
+      * [Purchase New Virtual Machine](#purchase-new-virtual-machine)
       * [Get Metrics](#get-metrics)
       * [Set Nameservers](#set-nameservers)
       * [Set Panel Password](#set-panel-password)
@@ -378,7 +379,7 @@ foreach ($domains as $domain) {
 
 #### Purchase New Domain
 
-Purchases and registers a new domain name. Returns an Order DTO.
+Purchases and registers a new domain name.
 
 *Doc:* [API Reference](https://developers.hostinger.com/#tag/domains-portfolio/POST/api/domains/v1/portfolio)
 
@@ -2029,6 +2030,63 @@ foreach ($vms as $vm) {
 
     $vm->toArray(); // ['id' => 17923, 'firewall_group_id' => null, 'hostname' => '...', 'state' => 'running', ...]
 }
+```
+
+#### Purchase New Virtual Machine
+
+Allows you to buy (purchase) and setup a new virtual machine.
+
+If virtual machine setup fails for any reason, login to hPanel and complete the setup manually.
+
+If no payment method is provided, your default payment method will be used automatically.
+
+*Doc:* [API Reference](https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines)
+
+```php
+$data = [
+    'item_id' => 'hostingercom-vps-kvm2-usd-1m',
+    'payment_method_id' => 1327362,
+    'setup' => [
+        'template_id' => 1130,
+        'data_center_id' => 19,
+        'post_install_script_id' => 6324,
+        'password' => 'MyS3cureP@ssw0rd!',
+        'hostname' => 'my.server.tld',
+        'install_monarx' => false,
+        'enable_backups' => true,
+        'ns1' => '1.1.1.1',
+        'ns2' => '1.0.0.1',
+        'public_key' => [
+            'name' => 'my-key',
+            'key' => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2X...'
+        ]
+    ],
+    'coupons' => ['VPSPROMO'],
+];
+
+$order = $hostinger->vps()->virtualMachines()->purchase($data);
+
+$order->id; // 2957087
+$order->subscription_id; // Azz353Uhl1xC54pR0
+$order->status->value; // completed
+$order->currency; // USD
+$order->subtotal; // 899
+$order->total; // 1080
+
+$order->billing_address->first_name; // John
+$order->billing_address->last_name; // Doe
+$order->billing_address->company; // null
+$order->billing_address->address_1; // null
+$order->billing_address->address_2; // null
+$order->billing_address->city; // null
+$order->billing_address->state; // null
+$order->billing_address->zip; // null
+$order->billing_address->country; // NL
+$order->billing_address->phone; // null
+$order->billing_address->email; // john@doe.tld
+
+$order->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
+$order->updated_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
 ```
 
 #### Get Metrics

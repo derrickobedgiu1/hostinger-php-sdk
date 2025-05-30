@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
+use DerrickOb\HostingerApi\Data\Billing\Order;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
@@ -41,6 +42,52 @@ final class VirtualMachine extends Resource
 
         /** @var array<VirtualMachineData> */
         return $this->transform(VirtualMachineData::class, $response);
+    }
+
+    /**
+     * Purchase new virtual machine.
+     *
+     * Allows you to buy (purchase) and setup a new virtual machine.
+     * If virtual machine setup fails for any reason, login to hPanel and complete the setup manually.
+     * If no payment method is provided, your default payment method will be used automatically.
+     *
+     * @param array{
+     *      item_id: string,
+     *      payment_method_id?: int,
+     *      setup: array{
+     *          template_id: int,
+     *          data_center_id: int,
+     *          password?: string,
+     *          hostname?: string,
+     *          install_monarx?: bool,
+     *          enable_backups?: bool,
+     *          ns1?: string,
+     *          ns2?: string,
+     *          post_install_script_id?: int,
+     *          public_key?: array{
+     *              name: string,
+     *              key: string
+     *          }
+     *      },
+     *      coupons?: array<int, string>
+     *  } $data Purchase and setup data for the virtual machine
+     *
+     * @return Order The resulting order details
+     *
+     * @throws AuthenticationException When authentication fails (401)
+     * @throws ValidationException     When validation fails (422)
+     * @throws RateLimitException      When rate limit is exceeded (429)
+     * @throws ApiException            For other API errors
+     *
+     * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines
+     */
+    public function purchase(array $data): Order
+    {
+        $version = $this->getApiVersion();
+        $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines', $version), $data);
+
+        /** @var Order */
+        return $this->transform(Order::class, $response);
     }
 
     /**
@@ -84,7 +131,7 @@ final class VirtualMachine extends Resource
      *         name: string,
      *         key: string
      *     }
-     * } $data Setup data for the virtual machine
+     * } $data Setup data for the virtual machine.
      *
      * @return VirtualMachineData The setup virtual machine
      *
