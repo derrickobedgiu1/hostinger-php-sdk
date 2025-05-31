@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
+use DerrickOb\HostingerApi\Data\Billing\Order;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
@@ -417,4 +418,39 @@ test('can set panel password', function (): void {
 
     expect($response)->toBeInstanceOf(Action::class)
         ->and($response->id)->toBe($action['id']);
+});
+
+test('can purchase new virtual machine', function (): void {
+    $faker = faker();
+    $itemId = 'hostingercom-vps-kvm2-usd-1m';
+    $paymentMethodId = $faker->randomNumber(6);
+
+    $setupData = [
+        'template_id' => $faker->randomNumber(7),
+        'data_center_id' => $faker->randomNumber(2),
+        'password' => $faker->password(12),
+        'hostname' => $faker->domainName(),
+    ];
+
+    $purchaseData = [
+        'item_id' => $itemId,
+        'payment_method_id' => $paymentMethodId,
+        'setup' => $setupData,
+        'coupons' => ['VPSPROMO'],
+    ];
+
+    $orderResponse = TestFactory::order();
+
+    $client = createMockClient();
+    $client->shouldReceive('post')
+        ->with('/api/vps/v1/virtual-machines', $purchaseData)
+        ->once()
+        ->andReturn($orderResponse);
+
+    $resource = new VirtualMachine($client);
+    $response = $resource->purchase($purchaseData);
+
+    expect($response)->toBeInstanceOf(Order::class)
+        ->and($response->id)->toBe($orderResponse['id'])
+        ->and($response->status->value)->toBe($orderResponse['status']);
 });
