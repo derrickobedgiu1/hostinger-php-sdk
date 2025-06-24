@@ -403,6 +403,21 @@ final class TestFactory
     }
 
     /**
+     * Generate a virtual machine order structure
+     *
+     * @param array<string, mixed> $attributes Attributes to override defaults
+     *
+     * @return array<string, mixed> Virtual machine order data
+     */
+    public static function virtualMachineOrder(array $attributes = []): array
+    {
+        return array_merge([
+            'order' => self::order(),
+            'virtual_machine' => self::virtualMachine(),
+        ], $attributes);
+    }
+
+    /**
      * Generate a post-install script structure
      *
      * @param array<string, mixed> $attributes Attributes to override defaults
