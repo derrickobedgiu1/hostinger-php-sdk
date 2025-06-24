@@ -2064,29 +2064,39 @@ $data = [
     'coupons' => ['VPSPROMO'],
 ];
 
-$order = $hostinger->vps()->virtualMachines()->purchase($data);
+$response = $hostinger->vps()->virtualMachines()->purchase($data);
 
-$order->id; // 2957087
-$order->subscription_id; // Azz353Uhl1xC54pR0
-$order->status->value; // completed
-$order->currency; // USD
-$order->subtotal; // 899
-$order->total; // 1080
+// Access order details
+$response->order->id; // 2957087
+$response->order->subscription_id; // Azz353Uhl1xC54pR0
+$response->order->status->value; // completed
+$response->order->currency; // USD
+$response->order->subtotal; // 899
+$response->order->total; // 1080
 
-$order->billing_address->first_name; // John
-$order->billing_address->last_name; // Doe
-$order->billing_address->company; // null
-$order->billing_address->address_1; // null
-$order->billing_address->address_2; // null
-$order->billing_address->city; // null
-$order->billing_address->state; // null
-$order->billing_address->zip; // null
-$order->billing_address->country; // NL
-$order->billing_address->phone; // null
-$order->billing_address->email; // john@doe.tld
+$response->order->billing_address->first_name; // John
+$response->order->billing_address->last_name; // Doe
+$response->order->billing_address->company; // null
+$response->order->billing_address->address_1; // null
+$response->order->billing_address->address_2; // null
+$response->order->billing_address->city; // null
+$response->order->billing_address->state; // null
+$response->order->billing_address->zip; // null
+$response->order->billing_address->country; // NL
+$response->order->billing_address->phone; // null
+$response->order->billing_address->email; // john@doe.tld
 
-$order->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
-$order->updated_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
+$response->order->created_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
+$response->order->updated_at->format('Y-m-d H:i:s'); // 2025-02-27 11:54:22
+
+// Access virtual machine details
+$response->virtual_machine->id; // 1268054
+$response->virtual_machine->hostname; // my.server.tld
+$response->virtual_machine->state->value; // creating
+$response->virtual_machine->plan; // KVM 4
+$response->virtual_machine->cpus; // 4
+$response->virtual_machine->memory; // 8192
+$response->virtual_machine->disk; // 51200
 ```
 
 #### Get Metrics

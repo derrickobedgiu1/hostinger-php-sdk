@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi\Resources\Vps;
 
-use DerrickOb\HostingerApi\Data\Billing\Order;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
+use DerrickOb\HostingerApi\Data\Vps\VirtualMachineOrder;
 use DerrickOb\HostingerApi\Exceptions\ApiException;
 use DerrickOb\HostingerApi\Exceptions\AuthenticationException;
 use DerrickOb\HostingerApi\Exceptions\RateLimitException;
@@ -72,7 +72,7 @@ final class VirtualMachine extends Resource
      *      coupons?: array<int, string>
      *  } $data Purchase and setup data for the virtual machine
      *
-     * @return Order The resulting order details
+     * @return VirtualMachineOrder The resulting order and virtual machine details
      *
      * @throws AuthenticationException When authentication fails (401)
      * @throws ValidationException     When validation fails (422)
@@ -81,13 +81,13 @@ final class VirtualMachine extends Resource
      *
      * @link https://developers.hostinger.com/#tag/vps-virtual-machine/POST/api/vps/v1/virtual-machines
      */
-    public function purchase(array $data): Order
+    public function purchase(array $data): VirtualMachineOrder
     {
         $version = $this->getApiVersion();
         $response = $this->client->post(sprintf('/api/vps/%s/virtual-machines', $version), $data);
 
-        /** @var Order */
-        return $this->transform(Order::class, $response);
+        /** @var VirtualMachineOrder */
+        return $this->transform(VirtualMachineOrder::class, $response);
     }
 
     /**

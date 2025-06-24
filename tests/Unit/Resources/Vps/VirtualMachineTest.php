@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace DerrickOb\HostingerApi\Tests\Unit\Resources\Vps;
 
-use DerrickOb\HostingerApi\Data\Billing\Order;
 use DerrickOb\HostingerApi\Data\PaginatedResponse;
 use DerrickOb\HostingerApi\Data\Vps\Action;
 use DerrickOb\HostingerApi\Data\Vps\Action as ActionData;
@@ -12,6 +11,7 @@ use DerrickOb\HostingerApi\Data\Vps\IpAddress;
 use DerrickOb\HostingerApi\Data\Vps\Metrics;
 use DerrickOb\HostingerApi\Data\Vps\PublicKey;
 use DerrickOb\HostingerApi\Data\Vps\VirtualMachine as VirtualMachineData;
+use DerrickOb\HostingerApi\Data\Vps\VirtualMachineOrder;
 use DerrickOb\HostingerApi\Enums\ActionsLock;
 use DerrickOb\HostingerApi\Enums\VirtualMachineState;
 use DerrickOb\HostingerApi\Resources\Vps\VirtualMachine;
@@ -439,7 +439,7 @@ test('can purchase new virtual machine', function (): void {
         'coupons' => ['VPSPROMO'],
     ];
 
-    $orderResponse = TestFactory::order();
+    $orderResponse = TestFactory::virtualMachineOrder();
 
     $client = createMockClient();
     $client->shouldReceive('post')
@@ -450,7 +450,8 @@ test('can purchase new virtual machine', function (): void {
     $resource = new VirtualMachine($client);
     $response = $resource->purchase($purchaseData);
 
-    expect($response)->toBeInstanceOf(Order::class)
-        ->and($response->id)->toBe($orderResponse['id'])
-        ->and($response->status->value)->toBe($orderResponse['status']);
+    expect($response)->toBeInstanceOf(VirtualMachineOrder::class)
+        ->and($response->order->id)->toBe($orderResponse['order']['id'])
+        ->and($response->order->status->value)->toBe($orderResponse['order']['status'])
+        ->and($response->virtual_machine->id)->toBe($orderResponse['virtual_machine']['id']);
 });
